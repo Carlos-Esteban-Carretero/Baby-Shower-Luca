@@ -1,13 +1,16 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background-color: #fbecec;
+    background-color: #e0f7fa; /* Azul claro */
     color: #333;
 }
 
 header {
-    background-color: #ffb6c1;
+    background-color: #4fc3f7; /* Azul más fuerte */
     padding: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
 }
 
 section {
@@ -27,4 +30,16 @@ form {
 input, button {
     margin: 5px;
     padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #4fc3f7;
+}
+
+button {
+    background-color: #4fc3f7;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0288d1;
 }
