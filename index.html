@@ -4,19 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invitación Baby Shower</title>
-    <link rel="stylesheet" href="styles.css?v=1.1"> <!-- Forzar recarga del CSS -->
+    <link rel="stylesheet" href="styles.css?v=1.1">
     <script src="script.js" defer></script>
 </head>
 <body>
     <header>
         <h1>¡Estás invitado al Baby Shower de Luca!</h1>
     </header>
-
+    
+    <section id="carousel">
+        <h2>Galería de imágenes</h2>
+        <div class="carousel-container">
+            <button id="prev">&#10094;</button>
+            <div class="carousel-slide">
+                <img src="imagen1.jpg" alt="Imagen 1">
+                <img src="imagen2.jpg" alt="Imagen 2">
+                <img src="imagen3.jpg" alt="Imagen 3">
+            </div>
+            <button id="next">&#10095;</button>
+        </div>
+    </section>
+    
+    <section id="video">
+        <h2>Mensaje especial</h2>
+        <video controls>
+            <source src="video.mp4" type="video/mp4">
+            Tu navegador no soporta el video.
+        </video>
+    </section>
+    
     <section id="contador">
         <h2>Faltan:</h2>
         <div id="countdown"></div>
     </section>
-
+    
     <section id="confirmacion">
         <h2>Confirma tu asistencia</h2>
         <form id="rsvpForm">
@@ -29,10 +50,7 @@
             <button type="submit">Confirmar</button>
         </form>
     </section>
-
-    <!-- Prueba para confirmar carga del CSS -->
-    <p class="test">Si esto es azul, el CSS está funcionando.</p>
-
+    
     <script src="script.js"></script>
 </body>
 </html>
