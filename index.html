@@ -9,7 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.0.1"></script>
     <script src="script.js" defer></script>
 </head>
-<body style="background-image: url('IMG-20250203-WA0009.jpg'); background-size: cover; background-position: center;">
+<body>
     <header>
         <h1 id="titulo">¡Estás invitado al Baby Shower de Luca! 🍼</h1>
     </header>
@@ -23,14 +23,12 @@
     <section id="carousel">
         <h2>Galería de imágenes</h2>
         <div class="carousel-container">
-            <button id="prev">&#10094;</button>
             <div class="carousel-slide">
                 <img src="IMG-20250203-WA0009.jpg" alt="Imagen 1" class="carousel-img">
                 <img src="IMG-20250203-WA0011.jpg" alt="Imagen 2" class="carousel-img">
                 <img src="IMG-20250203-WA0010.jpg" alt="Imagen 3" class="carousel-img">
                 <img src="IMG-20250203-WA0012.jpg" alt="Imagen 4" class="carousel-img">
             </div>
-            <button id="next">&#10095;</button>
         </div>
     </section>
 
@@ -61,5 +59,19 @@
         <h2>Invitados confirmados (<span id="contador-invitados">0</span>)</h2>
         <ul id="lista-invitados"></ul>
     </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let index = 0;
+            const slides = document.querySelector(".carousel-slide");
+            const totalSlides = slides.children.length;
+            
+            function moveSlide() {
+                index = (index + 1) % totalSlides;
+                slides.style.transform = `translateX(-${index * 100}%)`;
+            }
+            setInterval(moveSlide, 3000); // Cambia cada 3 segundos
+        });
+    </script>
 </body>
 </html>
