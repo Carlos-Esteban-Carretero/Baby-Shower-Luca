@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invitación Baby Shower</title>
-    <link rel="stylesheet" href="styles.css?v=1.4">
+    <link rel="stylesheet" href="styles.css?v=1.5">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
     <script src="script.js" defer></script>
 </head>
@@ -60,56 +60,53 @@
     <section id="confirmacion">
         <h2>Confirma tu asistencia</h2>
         <form id="rsvpForm">
-            <label for="nombre">Tu Nombre:</label>
+            <label for="nombre">Nombre:</label>
             <input type="text" id="nombre" required>
             
-            <label for="email">Tu Email:</label>
-            <input type="email" id="email" required>
+            <label for="apellido">Apellido:</label>
+            <input type="text" id="apellido" required>
             
             <button type="submit">Confirmar</button>
         </form>
+    </section>
+    
+    <section id="invitados">
+        <h2>Invitados confirmados</h2>
+        <ul id="lista-invitados"></ul>
     </section>
     
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             gsap.from("#titulo", { duration: 2, y: -50, opacity: 0, ease: "bounce" });
 
-            // Carrusel automático
-            const slides = document.querySelectorAll(".carousel-slide img");
-            let currentIndex = 0;
-            
-            function cambiarImagen() {
-                slides.forEach((img, index) => {
-                    img.style.display = (index === currentIndex) ? "block" : "none";
-                });
-                currentIndex = (currentIndex + 1) % slides.length;
-            }
-            
-            setInterval(cambiarImagen, 2000);
-            cambiarImagen(); // Mostrar la primera imagen al cargar
-
-            // Contador regresivo con diseño profesional
-            const eventoFecha = new Date("2025-03-02T17:00:00").getTime();
-            function actualizarContador() {
-                const ahora = new Date().getTime();
-                const diferencia = eventoFecha - ahora;
+            // Manejar formulario de confirmación y agregar invitados
+            document.getElementById("rsvpForm").addEventListener("submit", function (e) {
+                e.preventDefault();
+                let nombre = document.getElementById("nombre").value;
+                let apellido = document.getElementById("apellido").value;
+                let listaInvitados = document.getElementById("lista-invitados");
                 
-                const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
-                const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
-                const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
+                let nuevoInvitado = document.createElement("li");
+                nuevoInvitado.textContent = `${nombre} ${apellido}`;
                 
-                document.getElementById("dias").textContent = dias;
-                document.getElementById("horas").textContent = horas;
-                document.getElementById("minutos").textContent = minutos;
-                document.getElementById("segundos").textContent = segundos;
+                let subLista = document.createElement("ul");
+                nuevoInvitado.appendChild(subLista);
                 
-                if (diferencia < 0) {
-                    document.getElementById("countdown").innerHTML = "¡El evento ha comenzado!";
+                let agregarMas = confirm("¿Quieres agregar más invitados?");
+                while (agregarMas) {
+                    let extraNombre = prompt("Introduce el nombre del invitado adicional:");
+                    if (extraNombre) {
+                        let extraItem = document.createElement("li");
+                        extraItem.textContent = extraNombre;
+                        extraItem.style.marginLeft = "20px";
+                        subLista.appendChild(extraItem);
+                    }
+                    agregarMas = confirm("¿Quieres agregar otro más?");
                 }
-            }
-            setInterval(actualizarContador, 1000);
-            actualizarContador();
+                
+                listaInvitados.appendChild(nuevoInvitado);
+                document.getElementById("rsvpForm").reset();
+            });
         });
     </script>
 </body>
