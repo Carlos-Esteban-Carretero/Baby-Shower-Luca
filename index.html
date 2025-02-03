@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invitación Baby Shower</title>
-    <link rel="stylesheet" href="styles.css?v=2.1">
+    <link rel="stylesheet" href="styles.css?v=2.2">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
     <script src="script.js" defer></script>
 </head>
@@ -15,8 +15,8 @@
     
     <section id="music">
         <h2>Música de fondo</h2>
-        <button id="playMusic">Reproducir música</button>
-        <iframe id="musicPlayer" width="0" height="0" src="https://www.youtube.com/embed/Rir_fuLX7HM?enablejsapi=1" frameborder="0" allow="autoplay" allowfullscreen></iframe>
+        <button id="muteMusic">🔇 Silenciar</button>
+        <iframe id="musicPlayer" width="0" height="0" src="https://www.youtube.com/embed/Rir_fuLX7HM?autoplay=1&loop=1&playlist=Rir_fuLX7HM" frameborder="0" allow="autoplay" allowfullscreen></iframe>
     </section>
     
     <section id="carousel">
@@ -63,6 +63,18 @@
         </div>
     </section>
     
+    <section id="ubicacion">
+        <h2>Ubicación y horario</h2>
+        <p>📍 La fiesta será en: <strong>Av. del Juncal (Navalcarnero)</strong></p>
+        <p>🕒 La hora de inicio es <strong>17:30</strong>. Se recomienda llegar <strong>10 minutos antes</strong> para no perderte nada.</p>
+        <p>🔗 <a href="https://www.google.com/maps/search/?api=1&query=Av.+del+Juncal,+Navalcarnero" target="_blank">Abrir ubicación en Google Maps</a></p>
+    </section>
+    
+    <section id="calendario">
+        <h2>Agrega el evento a tu calendario</h2>
+        <button id="agregarCalendario">Añadir al calendario</button>
+    </section>
+    
     <section id="confirmacion">
         <h2>Confirma tu asistencia</h2>
         <form id="rsvpForm">
@@ -85,59 +97,17 @@
         document.addEventListener("DOMContentLoaded", function () {
             gsap.from("#titulo", { duration: 2, y: -50, opacity: 0, ease: "bounce" });
 
-            const listaInvitados = document.getElementById("lista-invitados");
-            const contadorInvitados = document.getElementById("contador-invitados");
-            let invitadosGuardados = JSON.parse(localStorage.getItem("invitados")) || [];
-            
-            function actualizarContador() {
-                let total = invitadosGuardados.reduce((acc, invitado) => acc + 1 + invitado.extra.length, 0);
-                contadorInvitados.textContent = total;
-            }
-            
-            function renderizarInvitados() {
-                listaInvitados.innerHTML = "";
-                invitadosGuardados.forEach(invitado => {
-                    let nuevoInvitado = document.createElement("li");
-                    nuevoInvitado.textContent = `${invitado.nombre} ${invitado.apellido}`;
-                    
-                    let subLista = document.createElement("ul");
-                    invitado.extra.forEach(extra => {
-                        let extraItem = document.createElement("li");
-                        extraItem.textContent = extra;
-                        extraItem.style.marginLeft = "20px";
-                        subLista.appendChild(extraItem);
-                    });
-                    nuevoInvitado.appendChild(subLista);
-                    listaInvitados.appendChild(nuevoInvitado);
-                });
-                actualizarContador();
-            }
-            renderizarInvitados();
-            
-            document.getElementById("rsvpForm").addEventListener("submit", function (e) {
-                e.preventDefault();
-                let nombre = document.getElementById("nombre").value;
-                let apellido = document.getElementById("apellido").value;
-                let extraInvitados = [];
-                
-                let agregarMas = confirm("¿Quieres agregar más invitados?");
-                while (agregarMas) {
-                    let extraNombre = prompt("Introduce el nombre del invitado adicional:");
-                    if (extraNombre) {
-                        extraInvitados.push(extraNombre);
-                    }
-                    agregarMas = confirm("¿Quieres agregar otro más?");
+            document.getElementById("muteMusic").addEventListener("click", function() {
+                let iframe = document.getElementById("musicPlayer");
+                if (iframe.src.includes("mute=1")) {
+                    iframe.src = "https://www.youtube.com/embed/Rir_fuLX7HM?autoplay=1&loop=1&playlist=Rir_fuLX7HM";
+                } else {
+                    iframe.src = "https://www.youtube.com/embed/Rir_fuLX7HM?autoplay=1&loop=1&playlist=Rir_fuLX7HM&mute=1";
                 }
-                
-                invitadosGuardados.push({ nombre, apellido, extra: extraInvitados });
-                localStorage.setItem("invitados", JSON.stringify(invitadosGuardados));
-                renderizarInvitados();
-                document.getElementById("rsvpForm").reset();
             });
             
-            document.getElementById("playMusic").addEventListener("click", function() {
-                let iframe = document.getElementById("musicPlayer");
-                iframe.src += "&autoplay=1";
+            document.getElementById("agregarCalendario").addEventListener("click", function() {
+                window.open("https://www.google.com/calendar/render?action=TEMPLATE&text=Baby+Shower+de+Luca&dates=20250302T173000Z/20250302T193000Z&details=Te+esperamos+en+el+baby+shower+de+Luca!&location=Av.+del+Juncal,+Navalcarnero", "_blank");
             });
         });
     </script>
