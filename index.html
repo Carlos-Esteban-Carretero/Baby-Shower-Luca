@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invitación Baby Shower</title>
-    <link rel="stylesheet" href="styles.css?v=2.3">
+    <link rel="stylesheet" href="styles.css?v=2.4">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
     <script src="script.js" defer></script>
 </head>
@@ -84,6 +84,9 @@
             <label for="apellido">Apellido:</label>
             <input type="text" id="apellido" required>
             
+            <div id="extra-invitados-container"></div>
+            <button type="button" id="agregar-invitado">Añadir invitado/familiar</button>
+            
             <button type="submit">Confirmar</button>
         </form>
     </section>
@@ -97,17 +100,40 @@
         document.addEventListener("DOMContentLoaded", function () {
             gsap.from("#titulo", { duration: 2, y: -50, opacity: 0, ease: "bounce" });
 
-            document.getElementById("muteMusic").addEventListener("click", function() {
-                let iframe = document.getElementById("musicPlayer");
-                if (iframe.src.includes("mute=1")) {
-                    iframe.src = "https://www.youtube.com/embed/Rir_fuLX7HM?autoplay=1&loop=1&playlist=Rir_fuLX7HM";
-                } else {
-                    iframe.src = "https://www.youtube.com/embed/Rir_fuLX7HM?autoplay=1&loop=1&playlist=Rir_fuLX7HM&mute=1";
-                }
-            });
-            
-            document.getElementById("agregarCalendario").addEventListener("click", function() {
-                window.open("https://www.google.com/calendar/render?action=TEMPLATE&text=Baby+Shower+de+Luca&dates=20250302T173000Z/20250302T193000Z&details=Te+esperamos+en+el+baby+shower+de+Luca!&location=Av.+del+Juncal,+Navalcarnero", "_blank");
+            let invitadosGuardados = JSON.parse(localStorage.getItem("invitados")) || [];
+            const listaInvitados = document.getElementById("lista-invitados");
+            const contadorInvitados = document.getElementById("contador-invitados");
+            const extraInvitadosContainer = document.getElementById("extra-invitados-container");
+
+            function actualizarContador() {
+                let total = invitadosGuardados.reduce((acc, invitado) => acc + 1 + invitado.extra.length, 0);
+                contadorInvitados.textContent = total;
+            }
+
+            function renderizarInvitados() {
+                listaInvitados.innerHTML = "";
+                invitadosGuardados.forEach(invitado => {
+                    let nuevoInvitado = document.createElement("li");
+                    nuevoInvitado.textContent = `${invitado.nombre} ${invitado.apellido}`;
+                    let subLista = document.createElement("ul");
+                    invitado.extra.forEach(extra => {
+                        let extraItem = document.createElement("li");
+                        extraItem.textContent = extra;
+                        extraItem.style.marginLeft = "20px";
+                        subLista.appendChild(extraItem);
+                    });
+                    nuevoInvitado.appendChild(subLista);
+                    listaInvitados.appendChild(nuevoInvitado);
+                });
+                actualizarContador();
+            }
+            renderizarInvitados();
+
+            document.getElementById("agregar-invitado").addEventListener("click", function() {
+                let input = document.createElement("input");
+                input.type = "text";
+                input.placeholder = "Nombre del invitado adicional";
+                extraInvitadosContainer.appendChild(input);
             });
         });
     </script>
