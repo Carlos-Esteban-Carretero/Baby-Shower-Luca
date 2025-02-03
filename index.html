@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invitación Baby Shower</title>
-    <link rel="stylesheet" href="styles.css?v=1.8">
+    <link rel="stylesheet" href="styles.css?v=1.9">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
     <script src="script.js" defer></script>
 </head>
@@ -78,8 +78,13 @@
     </section>
     
     <section id="invitados">
-        <h2>Invitados confirmados</h2>
+        <h2>Invitados confirmados (<span id="contador-invitados">0</span>)</h2>
         <ul id="lista-invitados"></ul>
+    </section>
+    
+    <section id="calendario">
+        <h2>Agrega el evento a tu calendario</h2>
+        <button id="agregarCalendario">Añadir al calendario</button>
     </section>
     
     <script>
@@ -87,11 +92,17 @@
             gsap.from("#titulo", { duration: 2, y: -50, opacity: 0, ease: "bounce" });
 
             const listaInvitados = document.getElementById("lista-invitados");
+            const contadorInvitados = document.getElementById("contador-invitados");
             let invitadosGuardados = JSON.parse(localStorage.getItem("invitados")) || [];
+            
+            function actualizarContador() {
+                let total = invitadosGuardados.reduce((acc, invitado) => acc + 1 + invitado.extra.length, 0);
+                contadorInvitados.textContent = total;
+            }
             
             function renderizarInvitados() {
                 listaInvitados.innerHTML = "";
-                invitadosGuardados.forEach((invitado, index) => {
+                invitadosGuardados.forEach(invitado => {
                     let nuevoInvitado = document.createElement("li");
                     nuevoInvitado.textContent = `${invitado.nombre} ${invitado.apellido}`;
                     
@@ -105,6 +116,7 @@
                     nuevoInvitado.appendChild(subLista);
                     listaInvitados.appendChild(nuevoInvitado);
                 });
+                actualizarContador();
             }
             renderizarInvitados();
             
@@ -127,6 +139,10 @@
                 localStorage.setItem("invitados", JSON.stringify(invitadosGuardados));
                 renderizarInvitados();
                 document.getElementById("rsvpForm").reset();
+            });
+            
+            document.getElementById("agregarCalendario").addEventListener("click", function() {
+                window.open("https://www.google.com/calendar/render?action=TEMPLATE&text=Baby+Shower+de+Luca&dates=20250302T173000Z/20250302T193000Z&details=Te+esperamos+en+el+baby+shower+de+Luca!&location=Av.+del+Juncal,+Navalcarnero", "_blank");
             });
         });
     </script>
