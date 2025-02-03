@@ -4,129 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invitación Baby Shower</title>
-    <link rel="stylesheet" href="styles.css?v=2.9">
+    <link rel="stylesheet" href="styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.0.1"></script>
     <script src="script.js" defer></script>
 </head>
 <body>
     <header>
-        <h1 id="titulo">¡Estás invitado al Baby Shower de Luca!</h1>
+        <h1 id="titulo">¡Estás invitado al Baby Shower de Luca! 🍼</h1>
     </header>
-    
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            confetti({
-                particleCount: 100,
-                spread: 70,
-                origin: { y: 0.6 }
-            });
-        });
-    </script>
-    
+
     <section id="music">
         <h2>Música de fondo</h2>
         <button id="muteMusic">🔇 Silenciar</button>
         <iframe id="musicPlayer" width="0" height="0" src="https://www.youtube.com/embed/Rir_fuLX7HM?autoplay=1&loop=1&playlist=Rir_fuLX7HM&mute=0" frameborder="0" allow="autoplay" allowfullscreen></iframe>
     </section>
-    
+
     <section id="game">
         <h2>Juego: Adivina la fecha de nacimiento</h2>
-        <p>¿Cuándo crees que nacerá Luca? Introduce una fecha y comprueba si acertaste cuando llegue el gran día.</p>
         <input type="text" id="nombreAdivinanza" placeholder="Tu nombre">
         <input type="date" id="fechaAdivinada">
         <button id="enviarAdivinanza">Enviar</button>
-        <p id="mensajeJuego"></p>
-        <h3>Predicciones de los invitados:</h3>
         <ul id="listaPredicciones"></ul>
     </section>
-    
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            let prediccionesGuardadas = JSON.parse(localStorage.getItem("predicciones")) || [];
-            let listaPredicciones = document.getElementById("listaPredicciones");
-            
-            function renderizarPredicciones() {
-                listaPredicciones.innerHTML = "";
-                prediccionesGuardadas.forEach(prediccion => {
-                    let nuevoItem = document.createElement("li");
-                    nuevoItem.textContent = `${prediccion.nombre} → ${prediccion.fecha}`;
-                    listaPredicciones.appendChild(nuevoItem);
-                });
-            }
-            renderizarPredicciones();
-            
-            document.getElementById("enviarAdivinanza").addEventListener("click", function () {
-                let nombre = document.getElementById("nombreAdivinanza").value;
-                let fechaIngresada = document.getElementById("fechaAdivinada").value;
-                if (nombre && fechaIngresada) {
-                    prediccionesGuardadas.push({ nombre, fecha: fechaIngresada });
-                    localStorage.setItem("predicciones", JSON.stringify(prediccionesGuardadas));
-                    renderizarPredicciones();
-                }
-            });
-        });
-    </script>
-    
+
     <section id="confirmacion">
         <h2>Confirma tu asistencia</h2>
         <form id="rsvpForm">
-            <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" required>
-            
-            <label for="apellido">Apellido:</label>
-            <input type="text" id="apellido" required>
-            
+            <input type="text" id="nombre" placeholder="Tu nombre" required>
+            <input type="text" id="apellido" placeholder="Tu apellido" required>
             <div id="extra-invitados-container"></div>
-            <button type="button" id="agregar-invitado">Añadir invitado/familiar</button>
-            
+            <button type="button" id="agregar-invitado">Añadir invitado</button>
             <button type="submit">Confirmar</button>
         </form>
     </section>
-    
+
     <section id="invitados">
         <h2>Invitados confirmados (<span id="contador-invitados">0</span>)</h2>
         <ul id="lista-invitados"></ul>
     </section>
-    
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            let invitadosGuardados = JSON.parse(localStorage.getItem("invitados")) || [];
-            const listaInvitados = document.getElementById("lista-invitados");
-            const contadorInvitados = document.getElementById("contador-invitados");
-            const extraInvitadosContainer = document.getElementById("extra-invitados-container");
-            
-            function actualizarContador() {
-                let total = invitadosGuardados.reduce((acc, invitado) => acc + 1 + invitado.extra.length, 0);
-                contadorInvitados.textContent = total;
-            }
-            
-            function renderizarInvitados() {
-                listaInvitados.innerHTML = "";
-                invitadosGuardados.forEach(invitado => {
-                    let nuevoInvitado = document.createElement("li");
-                    nuevoInvitado.textContent = `${invitado.nombre} ${invitado.apellido}`;
-                    let subLista = document.createElement("ul");
-                    invitado.extra.forEach(extra => {
-                        let extraItem = document.createElement("li");
-                        extraItem.textContent = extra;
-                        extraItem.style.marginLeft = "20px";
-                        subLista.appendChild(extraItem);
-                    });
-                    nuevoInvitado.appendChild(subLista);
-                    listaInvitados.appendChild(nuevoInvitado);
-                });
-                actualizarContador();
-            }
-            renderizarInvitados();
-            
-            document.getElementById("agregar-invitado").addEventListener("click", function() {
-                let input = document.createElement("input");
-                input.type = "text";
-                input.placeholder = "Nombre del invitado adicional";
-                extraInvitadosContainer.appendChild(input);
-            });
-        });
-    </script>
+
 </body>
 </html>
