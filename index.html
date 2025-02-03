@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invitación Baby Shower</title>
-    <link rel="stylesheet" href="styles.css?v=1.6">
+    <link rel="stylesheet" href="styles.css?v=1.7">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
     <script src="script.js" defer></script>
 </head>
@@ -86,32 +86,46 @@
         document.addEventListener("DOMContentLoaded", function () {
             gsap.from("#titulo", { duration: 2, y: -50, opacity: 0, ease: "bounce" });
 
-            // Manejar formulario de confirmación y agregar invitados
+            const listaInvitados = document.getElementById("lista-invitados");
+            let invitadosGuardados = JSON.parse(localStorage.getItem("invitados")) || [];
+            
+            function renderizarInvitados() {
+                listaInvitados.innerHTML = "";
+                invitadosGuardados.forEach(invitado => {
+                    let nuevoInvitado = document.createElement("li");
+                    nuevoInvitado.textContent = `${invitado.nombre} ${invitado.apellido}`;
+                    
+                    let subLista = document.createElement("ul");
+                    invitado.extra.forEach(extra => {
+                        let extraItem = document.createElement("li");
+                        extraItem.textContent = extra;
+                        extraItem.style.marginLeft = "20px";
+                        subLista.appendChild(extraItem);
+                    });
+                    nuevoInvitado.appendChild(subLista);
+                    listaInvitados.appendChild(nuevoInvitado);
+                });
+            }
+            renderizarInvitados();
+            
             document.getElementById("rsvpForm").addEventListener("submit", function (e) {
                 e.preventDefault();
                 let nombre = document.getElementById("nombre").value;
                 let apellido = document.getElementById("apellido").value;
-                let listaInvitados = document.getElementById("lista-invitados");
-                
-                let nuevoInvitado = document.createElement("li");
-                nuevoInvitado.textContent = `${nombre} ${apellido}`;
-                
-                let subLista = document.createElement("ul");
-                nuevoInvitado.appendChild(subLista);
+                let extraInvitados = [];
                 
                 let agregarMas = confirm("¿Quieres agregar más invitados?");
                 while (agregarMas) {
                     let extraNombre = prompt("Introduce el nombre del invitado adicional:");
                     if (extraNombre) {
-                        let extraItem = document.createElement("li");
-                        extraItem.textContent = extraNombre;
-                        extraItem.style.marginLeft = "20px";
-                        subLista.appendChild(extraItem);
+                        extraInvitados.push(extraNombre);
                     }
                     agregarMas = confirm("¿Quieres agregar otro más?");
                 }
                 
-                listaInvitados.appendChild(nuevoInvitado);
+                invitadosGuardados.push({ nombre, apellido, extra: extraInvitados });
+                localStorage.setItem("invitados", JSON.stringify(invitadosGuardados));
+                renderizarInvitados();
                 document.getElementById("rsvpForm").reset();
             });
         });
