@@ -1,15 +1,15 @@
 body {
     font-family: 'Poppins', sans-serif;
     text-align: center;
-    background-color: #f0f8ff; /* Azul pastel */
-    color: #333;
-    background-image: url('background-babyboy.jpg'); /* Imagen de fondo temática */
+    background-color: #f0f8ff;
+    background-image: url('background-baby.jpg'); /* Imagen de fondo temática */
     background-size: cover;
     background-position: center;
+    color: #333;
 }
 
 header {
-    background-color: rgba(79, 195, 247, 0.8); /* Azul cielo translúcido */
+    background-color: rgba(135, 206, 250, 0.8);
     padding: 20px;
     font-size: 28px;
     font-weight: bold;
@@ -25,12 +25,6 @@ section {
     border-radius: 15px;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(10px);
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
 input, button {
@@ -53,22 +47,6 @@ button {
 button:hover {
     background-color: #0288d1;
     transform: scale(1.05);
-}
-
-#titulo {
-    font-size: 32px;
-    font-weight: bold;
-    color: #ffffff;
-    text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
-}
-
-#game h2, #confirmacion h2, #invitados h2 {
-    color: #ff80ab;
-    font-size: 24px;
-}
-
-#music h2 {
-    color: #81d4fa;
 }
 
 ul {
