@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invitación Baby Shower</title>
-    <link rel="stylesheet" href="styles.css?v=2.7">
+    <link rel="stylesheet" href="styles.css?v=2.8">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.0.1"></script>
     <script src="script.js" defer></script>
@@ -33,89 +33,99 @@
     <section id="game">
         <h2>Juego: Adivina la fecha de nacimiento</h2>
         <p>¿Cuándo crees que nacerá Luca? Introduce una fecha y comprueba si acertaste cuando llegue el gran día.</p>
+        <input type="text" id="nombreAdivinanza" placeholder="Tu nombre">
         <input type="date" id="fechaAdivinada">
         <button id="enviarAdivinanza">Enviar</button>
         <p id="mensajeJuego"></p>
-    </section>
-    
-    <section id="carousel">
-        <h2>Galería de imágenes</h2>
-        <div class="carousel-container">
-            <div class="carousel-slide">
-                <img src="imagen1.jpg" alt="Imagen 1">
-                <img src="imagen2.jpg" alt="Imagen 2">
-                <img src="imagen3.jpg" alt="Imagen 3">
-                <img src="imagen4.jpg" alt="Imagen 4">
-            </div>
-        </div>
+        <h3>Predicciones de los invitados:</h3>
+        <ul id="listaPredicciones"></ul>
     </section>
     
     <script>
-        document.getElementById("enviarAdivinanza").addEventListener("click", function () {
-            let fechaIngresada = document.getElementById("fechaAdivinada").value;
-            let fechaReal = new Date("2025-03-10"); // Fecha real del nacimiento (ajústala cuando lo sepas)
-            let fechaUsuario = new Date(fechaIngresada);
-            let mensaje = "";
+        document.addEventListener("DOMContentLoaded", function () {
+            let prediccionesGuardadas = JSON.parse(localStorage.getItem("predicciones")) || [];
+            let listaPredicciones = document.getElementById("listaPredicciones");
             
-            if (fechaUsuario.toDateString() === fechaReal.toDateString()) {
-                mensaje = "🎉 ¡Increíble! Has acertado la fecha exacta. 🎉";
-            } else if (fechaUsuario < fechaReal) {
-                mensaje = "¡Te adelantaste! El bebé llegará más tarde. 😊";
-            } else {
-                mensaje = "¡Oops! Te pasaste, el bebé nacerá antes. 😉";
+            function renderizarPredicciones() {
+                listaPredicciones.innerHTML = "";
+                prediccionesGuardadas.forEach(prediccion => {
+                    let nuevoItem = document.createElement("li");
+                    nuevoItem.textContent = `${prediccion.nombre} → ${prediccion.fecha}`;
+                    listaPredicciones.appendChild(nuevoItem);
+                });
             }
+            renderizarPredicciones();
             
-            document.getElementById("mensajeJuego").textContent = mensaje;
+            document.getElementById("enviarAdivinanza").addEventListener("click", function () {
+                let nombre = document.getElementById("nombreAdivinanza").value;
+                let fechaIngresada = document.getElementById("fechaAdivinada").value;
+                if (nombre && fechaIngresada) {
+                    prediccionesGuardadas.push({ nombre, fecha: fechaIngresada });
+                    localStorage.setItem("predicciones", JSON.stringify(prediccionesGuardadas));
+                    renderizarPredicciones();
+                }
+            });
         });
     </script>
     
-    <section id="video">
-        <h2>Mensaje especial</h2>
-        <div class="video-container">
-            <video controls>
-                <source src="video.mp4" type="video/mp4">
-                Tu navegador no soporta el video.
-            </video>
-        </div>
+    <section id="confirmacion">
+        <h2>Confirma tu asistencia</h2>
+        <form id="rsvpForm">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" required>
+            
+            <label for="apellido">Apellido:</label>
+            <input type="text" id="apellido" required>
+            
+            <div id="extra-invitados-container"></div>
+            <button type="button" id="agregar-invitado">Añadir invitado/familiar</button>
+            
+            <button type="submit">Confirmar</button>
+        </form>
     </section>
     
-    <section id="contador" class="contador-baby">
-        <h2>Cuenta regresiva para el gran día:</h2>
-        <div id="countdown">
-            <div class="countdown-item">
-                <span id="dias"></span>
-                <p>Días</p>
-            </div>
-            <div class="countdown-item">
-                <span id="horas"></span>
-                <p>Horas</p>
-            </div>
-            <div class="countdown-item">
-                <span id="minutos"></span>
-                <p>Minutos</p>
-            </div>
-            <div class="countdown-item">
-                <span id="segundos"></span>
-                <p>Segundos</p>
-            </div>
-        </div>
-    </section>
-    
-    <section id="ubicacion">
-        <h2>Ubicación y horario</h2>
-        <p>📍 La fiesta será en: <strong>Av. del Juncal (Navalcarnero)</strong></p>
-        <p>🕒 La hora de inicio es <strong>17:30</strong>. Se recomienda llegar <strong>10 minutos antes</strong> para no perderte nada.</p>
-        <p>🔗 <a href="https://www.google.com/maps/search/?api=1&query=Av.+del+Juncal,+Navalcarnero" target="_blank">Abrir ubicación en Google Maps</a></p>
-    </section>
-    
-    <section id="calendario">
-        <h2>Agrega el evento a tu calendario</h2>
-        <button id="agregarCalendario">Añadir al calendario</button>
+    <section id="invitados">
+        <h2>Invitados confirmados (<span id="contador-invitados">0</span>)</h2>
+        <ul id="lista-invitados"></ul>
     </section>
     
     <script>
-        document.getElementById("agregarCalendario").addEventListener("click", function() {
-            window.open("https://www.google.com/calendar/render?action=TEMPLATE&text=Baby+Shower+de+Luca&dates=20250302T173000Z/20250302T193000Z&details=Te+esperamos+en+el+baby+shower+de+Luca!&location=Av.+del+Juncal,+Navalcarnero", "_blank");
+        document.addEventListener("DOMContentLoaded", function () {
+            let invitadosGuardados = JSON.parse(localStorage.getItem("invitados")) || [];
+            const listaInvitados = document.getElementById("lista-invitados");
+            const contadorInvitados = document.getElementById("contador-invitados");
+            const extraInvitadosContainer = document.getElementById("extra-invitados-container");
+            
+            function actualizarContador() {
+                let total = invitadosGuardados.reduce((acc, invitado) => acc + 1 + invitado.extra.length, 0);
+                contadorInvitados.textContent = total;
+            }
+            
+            function renderizarInvitados() {
+                listaInvitados.innerHTML = "";
+                invitadosGuardados.forEach(invitado => {
+                    let nuevoInvitado = document.createElement("li");
+                    nuevoInvitado.textContent = `${invitado.nombre} ${invitado.apellido}`;
+                    let subLista = document.createElement("ul");
+                    invitado.extra.forEach(extra => {
+                        let extraItem = document.createElement("li");
+                        extraItem.textContent = extra;
+                        extraItem.style.marginLeft = "20px";
+                        subLista.appendChild(extraItem);
+                    });
+                    nuevoInvitado.appendChild(subLista);
+                    listaInvitados.appendChild(nuevoInvitado);
+                });
+                actualizarContador();
+            }
+            renderizarInvitados();
+            
+            document.getElementById("agregar-invitado").addEventListener("click", function() {
+                let input = document.createElement("input");
+                input.type = "text";
+                input.placeholder = "Nombre del invitado adicional";
+                extraInvitadosContainer.appendChild(input);
+            });
         });
     </script>
 </body>
