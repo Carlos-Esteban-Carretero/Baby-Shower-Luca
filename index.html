@@ -20,12 +20,30 @@
         <iframe id="musicPlayer" width="0" height="0" src="https://www.youtube.com/embed/Rir_fuLX7HM?autoplay=1&loop=1&playlist=Rir_fuLX7HM&mute=0" frameborder="0" allow="autoplay" allowfullscreen></iframe>
     </section>
 
-    <section id="game">
-        <h2>Juego: Adivina la fecha de nacimiento</h2>
-        <input type="text" id="nombreAdivinanza" placeholder="Tu nombre">
-        <input type="date" id="fechaAdivinada">
-        <button id="enviarAdivinanza">Enviar</button>
-        <ul id="listaPredicciones"></ul>
+    <section id="carousel">
+        <h2>Galería de imágenes</h2>
+        <div class="carousel-container">
+            <button id="prev">&#10094;</button>
+            <div class="carousel-slide">
+                <img src="imagen1.jpg" alt="Imagen 1">
+                <img src="imagen2.jpg" alt="Imagen 2">
+                <img src="imagen3.jpg" alt="Imagen 3">
+                <img src="imagen4.jpg" alt="Imagen 4">
+            </div>
+            <button id="next">&#10095;</button>
+        </div>
+    </section>
+
+    <section id="contador">
+        <h2>Cuenta regresiva para el gran día:</h2>
+        <div id="countdown"></div>
+    </section>
+
+    <section id="ubicacion">
+        <h2>Ubicación y horario</h2>
+        <p>📍 La fiesta será en: <strong>Av. del Juncal, Navalcarnero</strong></p>
+        <p>🕒 La hora de inicio es <strong>17:30</strong>. Se recomienda llegar <strong>10 minutos antes</strong> para no perderte nada.</p>
+        <p>🔗 <a href="https://www.google.com/maps/search/?api=1&query=Av.+del+Juncal,+Navalcarnero" target="_blank">Abrir en Google Maps</a></p>
     </section>
 
     <section id="confirmacion">
