@@ -2,7 +2,7 @@ body {
     font-family: 'Poppins', sans-serif;
     text-align: center;
     background-color: #f0f8ff;
-    background-image: url('background-baby.jpg'); /* Imagen de fondo temática */
+    background-image: url('background-baby.jpg'); /* Imagen de fondo con cigüeñas y ositos */
     background-size: cover;
     background-position: center;
     color: #333;
@@ -15,7 +15,6 @@ header {
     font-weight: bold;
     color: white;
     border-radius: 10px;
-    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 section {
@@ -24,15 +23,24 @@ section {
     background-color: rgba(255, 255, 255, 0.9);
     border-radius: 15px;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(10px);
 }
 
-input, button {
-    margin: 10px;
-    padding: 12px;
-    border-radius: 8px;
-    border: 2px solid #4fc3f7;
-    font-size: 16px;
+#carousel {
+    position: relative;
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+
+.carousel-slide {
+    display: flex;
+    width: 400%;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-slide img {
+    width: 100%;
+    border-radius: 10px;
 }
 
 button {
@@ -41,24 +49,6 @@ button {
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
-}
-
-button:hover {
-    background-color: #0288d1;
-    transform: scale(1.05);
-}
-
-ul {
-    list-style: none;
-    padding: 0;
-}
-
-ul li {
-    font-size: 18px;
-    background: #ffffff;
-    padding: 10px;
+    padding: 10px 20px;
     border-radius: 8px;
-    margin: 5px 0;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
 }
