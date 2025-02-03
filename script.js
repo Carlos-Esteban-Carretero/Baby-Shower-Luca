@@ -1,28 +1,68 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const eventoFecha = new Date("2025-03-01T00:00:00").getTime();
-    const countdownEl = document.getElementById("countdown");
+    // 🎉 Efecto de confeti
+    confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 }
+    });
+
+    // 🎵 Música de fondo con botón de silenciar
+    let musicPlayer = document.getElementById("musicPlayer");
+    let muteButton = document.getElementById("muteMusic");
+
+    muteButton.addEventListener("click", function () {
+        let src = musicPlayer.src;
+        if (src.includes("mute=1")) {
+            musicPlayer.src = src.replace("mute=1", "mute=0");
+            muteButton.textContent = "🔇 Silenciar";
+        } else {
+            musicPlayer.src = src.replace("mute=0", "mute=1");
+            muteButton.textContent = "🔊 Reproducir";
+        }
+    });
+
+    // 📅 Juego: Adivina la fecha de nacimiento
+    let prediccionesGuardadas = JSON.parse(localStorage.getItem("predicciones")) || [];
+    let listaPredicciones = document.getElementById("listaPredicciones");
+
+    function renderizarPredicciones() {
+        listaPredicciones.innerHTML = "";
+        prediccionesGuardadas.forEach(prediccion => {
+            let nuevoItem = document.createElement("li");
+            nuevoItem.textContent = `${prediccion.nombre} → ${prediccion.fecha}`;
+            listaPredicciones.appendChild(nuevoItem);
+        });
+    }
+    renderizarPredicciones();
+
+    document.getElementById("enviarAdivinanza").addEventListener("click", function () {
+        let nombre = document.getElementById("nombreAdivinanza").value;
+        let fechaIngresada = document.getElementById("fechaAdivinada").value;
+        if (nombre && fechaIngresada) {
+            prediccionesGuardadas.push({ nombre, fecha: fechaIngresada });
+            localStorage.setItem("predicciones", JSON.stringify(prediccionesGuardadas));
+            renderizarPredicciones();
+        }
+    });
+
+    // ✅ Confirmar asistencia y añadir invitados
+    let invitadosGuardados = JSON.parse(localStorage.getItem("invitados")) || [];
+    const listaInvitados = document.getElementById("lista-invitados");
+    const contadorInvitados = document.getElementById("contador-invitados");
 
     function actualizarContador() {
-        const ahora = new Date().getTime();
-        const diferencia = eventoFecha - ahora;
-
-        const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
-        const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
-        const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
-
-        countdownEl.innerHTML = `${dias}d ${horas}h ${minutos}m ${segundos}s`;
-
-        if (diferencia < 0) {
-            countdownEl.innerHTML = "¡El evento ha comenzado!";
-        }
+        let total = invitadosGuardados.reduce((acc, invitado) => acc + 1 + invitado.extra.length, 0);
+        contadorInvitados.textContent = total;
     }
 
-    setInterval(actualizarContador, 1000);
-
-    // Manejar formulario de confirmación
-    document.getElementById("rsvpForm").addEventListener("submit", function (e) {
-        e.preventDefault();
-        alert("¡Gracias por confirmar tu asistencia!");
-    });
+    function renderizarInvitados() {
+        listaInvitados.innerHTML = "";
+        invitadosGuardados.forEach(invitado => {
+            let nuevoInvitado = document.createElement("li");
+            nuevoInvitado.textContent = `${invitado.nombre} ${invitado.apellido}`;
+            listaInvitados.appendChild(nuevoInvitado);
+        });
+        actualizarContador();
+    }
+    renderizarInvitados();
 });
