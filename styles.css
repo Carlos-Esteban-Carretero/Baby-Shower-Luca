@@ -1,54 +1,68 @@
 body {
     font-family: 'Poppins', sans-serif;
     text-align: center;
-    background-color: #f0f8ff;
-    background-image: url('background-baby.jpg'); /* Imagen de fondo con cigüeñas y ositos */
-    background-size: cover;
-    background-position: center;
+    background-color: #e0f7fa; /* Azul pastel baby shower */
     color: #333;
+    margin: 0;
+    padding: 0;
 }
 
 header {
-    background-color: rgba(135, 206, 250, 0.8);
-    padding: 20px;
-    font-size: 28px;
-    font-weight: bold;
+    background-color: #4fc3f7;
+    padding: 40px;
     color: white;
-    border-radius: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 section {
-    margin: 20px;
+    margin: 30px auto;
     padding: 20px;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: white;
     border-radius: 15px;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-#carousel {
-    position: relative;
     width: 80%;
-    margin: auto;
-    overflow: hidden;
-}
-
-.carousel-slide {
-    display: flex;
-    width: 400%;
-    transition: transform 0.5s ease-in-out;
-}
-
-.carousel-slide img {
-    width: 100%;
-    border-radius: 10px;
+    max-width: 900px;
 }
 
 button {
     background-color: #4fc3f7;
     color: white;
     font-weight: bold;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
-    padding: 10px 20px;
-    border-radius: 8px;
+}
+
+button:hover {
+    background-color: #0288d1;
+    transform: scale(1.05);
+}
+
+#carousel {
+    position: relative;
+    overflow: hidden;
+    max-width: 600px;
+    margin: auto;
+    border-radius: 10px;
+}
+
+.carousel-container {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+#countdown {
+    font-size: 24px;
+    font-weight: bold;
+    color: #0288d1;
 }
