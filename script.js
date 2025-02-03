@@ -1,11 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () {
+    // 🎉 Efecto de confeti
     confetti({
         particleCount: 100,
         spread: 70,
         origin: { y: 0.6 }
     });
 
-    // Música
+    // 🎵 Música de fondo con botón de silenciar
     let musicPlayer = document.getElementById("musicPlayer");
     let muteButton = document.getElementById("muteMusic");
 
@@ -20,35 +21,14 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // Carrusel de imágenes
+    // 📸 Carrusel automático
     let index = 0;
-    const slides = document.querySelector(".carousel-slide");
+    const slides = document.querySelector(".carousel-container");
     const totalSlides = slides.children.length;
-    document.getElementById("next").addEventListener("click", function () {
+
+    function moveSlide() {
         index = (index + 1) % totalSlides;
         slides.style.transform = `translateX(-${index * 100}%)`;
-    });
-
-    document.getElementById("prev").addEventListener("click", function () {
-        index = (index - 1 + totalSlides) % totalSlides;
-        slides.style.transform = `translateX(-${index * 100}%)`;
-    });
-
-    // Contador regresivo
-    const eventoFecha = new Date("2025-03-02T17:30:00").getTime();
-    const countdownEl = document.getElementById("countdown");
-
-    function actualizarContador() {
-        const ahora = new Date().getTime();
-        const diferencia = eventoFecha - ahora;
-
-        const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
-        const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
-        const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
-
-        countdownEl.innerHTML = `${dias}d ${horas}h ${minutos}m ${segundos}s`;
     }
-
-    setInterval(actualizarContador, 1000);
+    setInterval(moveSlide, 3000); // Cambia cada 3 segundos
 });
