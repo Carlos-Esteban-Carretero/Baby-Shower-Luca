@@ -13,15 +13,9 @@
     <header>
         <div class="header-container">
             <h1 id="titulo">¡Estás invitado al Baby Shower de Luca! 🍼</h1>
-            <p>2 de marzo de 2025 | 17:30 | Av. del Juncal, Navalcarnero</p>
+            <div id="muteMusic" class="mute-icon">🔊</div>
         </div>
     </header>
-    
-    <section id="music">
-        <h2>Música de fondo</h2>
-        <button id="muteMusic">🔇 Silenciar</button>
-        <iframe id="musicPlayer" width="0" height="0" src="https://www.youtube.com/embed/Rir_fuLX7HM?autoplay=1&loop=1&playlist=Rir_fuLX7HM&mute=0" frameborder="0" allow="autoplay" allowfullscreen></iframe>
-    </section>
     
     <section id="carousel">
         <h2>Galería de imágenes</h2>
@@ -34,7 +28,7 @@
             </div>
         </div>
     </section>
-    
+
     <section id="contador">
         <h2>Cuenta regresiva para el gran día:</h2>
         <div id="countdown"></div>
@@ -44,7 +38,15 @@
         <h2>Ubicación y horario</h2>
         <p>📍 La fiesta será en: <strong>Av. del Juncal, Navalcarnero</strong></p>
         <p>🕒 La hora de inicio es <strong>17:30</strong>. Se recomienda llegar <strong>10 minutos antes</strong> para no perderte nada.</p>
-        <p>🔗 <a href="https://www.google.com/maps/search/?api=1&query=Av.+del+Juncal,+Navalcarnero" target="_blank">Abrir en Google Maps</a></p>
+        <button onclick="window.open('https://www.google.com/maps/search/?api=1&query=Av.+del+Juncal,+Navalcarnero', '_blank')" class="maps-btn">Abrir en Google Maps</button>
+    </section>
+    
+    <section id="video">
+        <h2>Video Especial</h2>
+        <video controls>
+            <source src="video.mp4" type="video/mp4">
+            Tu navegador no soporta el video.
+        </video>
     </section>
     
     <section id="confirmacion">
@@ -52,8 +54,8 @@
         <form id="rsvpForm">
             <input type="text" id="nombre" placeholder="Tu nombre" required>
             <input type="text" id="apellido" placeholder="Tu apellido" required>
-            <div id="extra-invitados-container"></div>
-            <button type="button" id="agregar-invitado">Añadir invitado</button>
+            <label for="acompanantes">¿Viene algún familiar/amigo contigo?</label>
+            <input type="text" id="acompanantes" placeholder="Nombre del acompañante (opcional)">
             <button type="submit">Confirmar</button>
         </form>
     </section>
@@ -62,19 +64,5 @@
         <h2>Invitados confirmados (<span id="contador-invitados">0</span>)</h2>
         <ul id="lista-invitados"></ul>
     </section>
-    
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            let index = 0;
-            const slides = document.querySelector(".carousel-slide");
-            const totalSlides = slides.children.length;
-            
-            function moveSlide() {
-                index = (index + 1) % totalSlides;
-                slides.style.transform = `translateX(-${index * 100}%)`;
-            }
-            setInterval(moveSlide, 3000); // Cambia cada 3 segundos
-        });
-    </script>
 </body>
 </html>
