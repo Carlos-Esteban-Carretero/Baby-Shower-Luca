@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invitación Baby Shower</title>
-    <link rel="stylesheet" href="styles.css?v=2.6">
+    <link rel="stylesheet" href="styles.css?v=2.7">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.0.1"></script>
     <script src="script.js" defer></script>
 </head>
 <body>
@@ -13,10 +14,28 @@
         <h1 id="titulo">¡Estás invitado al Baby Shower de Luca!</h1>
     </header>
     
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        });
+    </script>
+    
     <section id="music">
         <h2>Música de fondo</h2>
         <button id="muteMusic">🔇 Silenciar</button>
         <iframe id="musicPlayer" width="0" height="0" src="https://www.youtube.com/embed/Rir_fuLX7HM?autoplay=1&loop=1&playlist=Rir_fuLX7HM&mute=0" frameborder="0" allow="autoplay" allowfullscreen></iframe>
+    </section>
+    
+    <section id="game">
+        <h2>Juego: Adivina la fecha de nacimiento</h2>
+        <p>¿Cuándo crees que nacerá Luca? Introduce una fecha y comprueba si acertaste cuando llegue el gran día.</p>
+        <input type="date" id="fechaAdivinada">
+        <button id="enviarAdivinanza">Enviar</button>
+        <p id="mensajeJuego"></p>
     </section>
     
     <section id="carousel">
@@ -30,6 +49,25 @@
             </div>
         </div>
     </section>
+    
+    <script>
+        document.getElementById("enviarAdivinanza").addEventListener("click", function () {
+            let fechaIngresada = document.getElementById("fechaAdivinada").value;
+            let fechaReal = new Date("2025-03-10"); // Fecha real del nacimiento (ajústala cuando lo sepas)
+            let fechaUsuario = new Date(fechaIngresada);
+            let mensaje = "";
+            
+            if (fechaUsuario.toDateString() === fechaReal.toDateString()) {
+                mensaje = "🎉 ¡Increíble! Has acertado la fecha exacta. 🎉";
+            } else if (fechaUsuario < fechaReal) {
+                mensaje = "¡Te adelantaste! El bebé llegará más tarde. 😊";
+            } else {
+                mensaje = "¡Oops! Te pasaste, el bebé nacerá antes. 😉";
+            }
+            
+            document.getElementById("mensajeJuego").textContent = mensaje;
+        });
+    </script>
     
     <section id="video">
         <h2>Mensaje especial</h2>
@@ -75,48 +113,9 @@
         <button id="agregarCalendario">Añadir al calendario</button>
     </section>
     
-    <section id="confirmacion">
-        <h2>Confirma tu asistencia</h2>
-        <form id="rsvpForm">
-            <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" required>
-            
-            <label for="apellido">Apellido:</label>
-            <input type="text" id="apellido" required>
-            
-            <div id="extra-invitados-container"></div>
-            <button type="button" id="agregar-invitado">Añadir invitado/familiar</button>
-            
-            <button type="submit">Confirmar</button>
-        </form>
-    </section>
-    
-    <section id="invitados">
-        <h2>Invitados confirmados (<span id="contador-invitados">0</span>)</h2>
-        <ul id="lista-invitados"></ul>
-    </section>
-    
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            gsap.from("#titulo", { duration: 2, y: -50, opacity: 0, ease: "bounce" });
-            
-            let musicPlayer = document.getElementById("musicPlayer");
-            let muteButton = document.getElementById("muteMusic");
-            
-            muteButton.addEventListener("click", function() {
-                let src = musicPlayer.src;
-                if (src.includes("mute=1")) {
-                    musicPlayer.src = src.replace("mute=1", "mute=0");
-                    muteButton.textContent = "🔇 Silenciar";
-                } else {
-                    musicPlayer.src = src.replace("mute=0", "mute=1");
-                    muteButton.textContent = "🔊 Reproducir";
-                }
-            });
-            
-            document.getElementById("agregarCalendario").addEventListener("click", function() {
-                window.open("https://www.google.com/calendar/render?action=TEMPLATE&text=Baby+Shower+de+Luca&dates=20250302T173000Z/20250302T193000Z&details=Te+esperamos+en+el+baby+shower+de+Luca!&location=Av.+del+Juncal,+Navalcarnero", "_blank");
-            });
+        document.getElementById("agregarCalendario").addEventListener("click", function() {
+            window.open("https://www.google.com/calendar/render?action=TEMPLATE&text=Baby+Shower+de+Luca&dates=20250302T173000Z/20250302T193000Z&details=Te+esperamos+en+el+baby+shower+de+Luca!&location=Av.+del+Juncal,+Navalcarnero", "_blank");
         });
     </script>
 </body>
