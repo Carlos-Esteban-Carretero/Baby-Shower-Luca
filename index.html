@@ -16,13 +16,12 @@
     <section id="carousel">
         <h2>Galería de imágenes</h2>
         <div class="carousel-container">
-            <button id="prev">&#10094;</button>
             <div class="carousel-slide">
                 <img src="imagen1.jpg" alt="Imagen 1">
                 <img src="imagen2.jpg" alt="Imagen 2">
                 <img src="imagen3.jpg" alt="Imagen 3">
+                <img src="imagen4.jpg" alt="Imagen 4">
             </div>
-            <button id="next">&#10095;</button>
         </div>
     </section>
     
@@ -55,6 +54,20 @@
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             gsap.from("#titulo", { duration: 2, y: -50, opacity: 0, ease: "bounce" });
+
+            // Carrusel automático
+            const slides = document.querySelectorAll(".carousel-slide img");
+            let currentIndex = 0;
+            
+            function cambiarImagen() {
+                slides.forEach((img, index) => {
+                    img.style.display = (index === currentIndex) ? "block" : "none";
+                });
+                currentIndex = (currentIndex + 1) % slides.length;
+            }
+            
+            setInterval(cambiarImagen, 2000);
+            cambiarImagen(); // Mostrar la primera imagen al cargar
         });
     </script>
 </body>
