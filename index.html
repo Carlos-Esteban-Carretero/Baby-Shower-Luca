@@ -16,7 +16,7 @@
             <div id="muteMusic" class="mute-icon">🔊</div>
         </div>
     </header>
-    
+
     <section id="carousel">
         <div class="carousel-container">
             <div class="carousel-slide">
@@ -32,14 +32,14 @@
         <h2>Cuenta regresiva para el gran día:</h2>
         <div id="countdown"></div>
     </section>
-    
+
     <section id="ubicacion">
-        <h2>Ubicación y horario</h2>
-        <p>📍 La fiesta será en: <strong>Av. del Juncal, Navalcarnero</strong></p>
-        <p>🕒 La hora de inicio es <strong>17:30</strong>. Se recomienda llegar <strong>10 minutos antes</strong> para no perderte nada.</p>
+        <h2>📍 Ubicación y Horario</h2>
+        <p><i class="fas fa-map-marker-alt"></i> <strong>Av. del Juncal, Navalcarnero</strong></p>
+        <p><i class="fas fa-clock"></i> <strong>17:30</strong> - Se recomienda llegar <strong>10 minutos antes</strong>.</p>
         <button onclick="window.open('https://www.google.com/maps/search/?api=1&query=Av.+del+Juncal,+Navalcarnero', '_blank')" class="maps-btn">Abrir en Google Maps</button>
     </section>
-    
+
     <section id="video">
         <h2>Video Especial</h2>
         <video controls>
@@ -47,23 +47,21 @@
             Tu navegador no soporta el video.
         </video>
     </section>
-    
+
     <section id="confirmacion">
         <h2>Confirma tu asistencia</h2>
         <form id="rsvpForm">
             <input type="text" id="nombre" placeholder="Tu nombre" required>
             <input type="text" id="apellido" placeholder="Tu apellido" required>
             <label for="acompanantes">¿Viene algún familiar/amigo contigo?</label>
-            <div id="acompanantes-container">
-                <input type="text" class="acompanante" placeholder="Nombre del acompañante (opcional)">
-            </div>
+            <div id="acompanantes-container"></div>
             <button type="button" id="agregar-acompanante">➕ Añadir acompañante</button>
             <button type="submit">Confirmar</button>
         </form>
     </section>
-    
+
     <section id="invitados">
-        <h2>Invitados confirmados (<span id="contador-invitados">0</span>)</h2>
+        <h2>🎉 Invitados confirmados (<span id="contador-invitados">0</span>)</h2>
         <ul id="lista-invitados"></ul>
     </section>
 </body>
