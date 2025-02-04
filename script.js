@@ -1,3 +1,19 @@
+// 🔥 Configuración de Firebase
+const firebaseConfig = {
+    apiKey: "AIzaSyASZ9upT2Rv0wfESt9dBvOBi-_trzmsE-U",
+    authDomain: "baby-shower-luca.firebaseapp.com",
+    databaseURL: "https://baby-shower-luca-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "baby-shower-luca",
+    storageBucket: "baby-shower-luca.appspot.com",
+    messagingSenderId: "1007298783013",
+    appId: "1:1007298783013:web:3b095422fac1e9bff1cc",
+    measurementId: "G-CJ5P4M14FE"
+};
+
+// ✅ Inicializar Firebase
+firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
+
 document.addEventListener("DOMContentLoaded", function () {
     // 🎉 Efecto de confeti al cargar la página
     confetti({
@@ -66,8 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
     setInterval(actualizarContador, 1000);
     actualizarContador();
 
-    // ✅ Manejo de confirmación de asistencia con botón de añadir más invitados
-    let invitadosGuardados = JSON.parse(localStorage.getItem("invitados")) || [];
+    // ✅ Manejo de confirmación de asistencia con Firebase
     const listaInvitados = document.getElementById("lista-invitados");
     const contadorInvitados = document.getElementById("contador-invitados");
     const rsvpForm = document.getElementById("rsvpForm");
@@ -82,17 +97,26 @@ document.addEventListener("DOMContentLoaded", function () {
         acompanantesContainer.appendChild(nuevoInput);
     });
 
-    function actualizarListaInvitados() {
+    function actualizarListaInvitados(snapshot) {
         listaInvitados.innerHTML = "";
-        invitadosGuardados.forEach(invitado => {
-            let nuevoInvitado = document.createElement("li");
-            nuevoInvitado.textContent = `${invitado.nombre} ${invitado.apellido}`;
-            listaInvitados.appendChild(nuevoInvitado);
+        let count = 0;
+
+        snapshot.forEach(function (childSnapshot) {
+            let data = childSnapshot.val();
+            let li = document.createElement("li");
+            li.textContent = `${data.nombre} ${data.apellido}`;
+            if (data.acompanantes && data.acompanantes.length > 0) {
+                li.textContent += ` (Acompañantes: ${data.acompanantes.join(", ")})`;
+            }
+            listaInvitados.appendChild(li);
+            count++;
         });
-        contadorInvitados.textContent = invitadosGuardados.length;
+
+        contadorInvitados.textContent = count;
     }
-    
-    actualizarListaInvitados();
+
+    // 📌 Cargar invitados en tiempo real desde Firebase
+    database.ref("invitados").on("value", actualizarListaInvitados);
 
     rsvpForm.addEventListener("submit", function (e) {
         e.preventDefault();
@@ -101,9 +125,14 @@ document.addEventListener("DOMContentLoaded", function () {
         let acompanantes = [...document.querySelectorAll(".acompanante")].map(input => input.value).filter(val => val !== "");
 
         if (nombre && apellido) {
-            invitadosGuardados.push({ nombre, apellido, acompanantes });
-            localStorage.setItem("invitados", JSON.stringify(invitadosGuardados));
-            actualizarListaInvitados();
+            let nuevoInvitado = database.ref("invitados").push();
+            nuevoInvitado.set({
+                nombre: nombre,
+                apellido: apellido,
+                acompanantes: acompanantes
+            });
+
+            // Resetear formulario y acompañantes
             rsvpForm.reset();
             acompanantesContainer.innerHTML = "";
         }
