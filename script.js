@@ -1,3 +1,19 @@
+// Configuración de Firebase
+const firebaseConfig = {
+    apiKey: "AIzaSyASZ9upT2Rv0wfESt9dBvOBi-_trzmsE-U",
+    authDomain: "baby-shower-luca.firebaseapp.com",
+    databaseURL: "https://baby-shower-luca-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "baby-shower-luca",
+    storageBucket: "baby-shower-luca.appspot.com",
+    messagingSenderId: "1007298783013",
+    appId: "1:1007298783013:web:3b095422fac1e9bff1cc",
+    measurementId: "G-CJ5P4M14FE"
+};
+
+// Inicializar Firebase
+firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
+
 document.addEventListener("DOMContentLoaded", function () {
     // 🎉 Efecto de confeti al cargar la página
     confetti({
