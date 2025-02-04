@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
     // 🎉 Efecto de confeti al cargar la página
     confetti({
-        particleCount: 100,
-        spread: 70,
+        particleCount: 200,
+        spread: 80,
         origin: { y: 0.6 }
     });
 
@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let musicPlayer = new Audio("https://www.example.com/music.mp3"); // Reemplazar con URL real
     musicPlayer.loop = true;
     musicPlayer.volume = 0.5;
+    
     document.addEventListener("click", () => {
         musicPlayer.play().catch(() => console.log("Reproducción bloqueada por el navegador"));
     }, { once: true });
@@ -29,6 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let index = 0;
     const slides = document.querySelectorAll(".carousel-slide img");
     const totalSlides = slides.length;
+
     slides.forEach(img => {
         img.style.width = "100%";
         img.style.height = "300px";
@@ -41,11 +43,12 @@ document.addEventListener("DOMContentLoaded", function () {
         });
         index = (index + 1) % totalSlides;
     }
+    
     showSlide();
     setInterval(showSlide, 3000);
 
     // 🕒 Contador regresivo con formato avanzado
-    const eventoFecha = new Date("2025-03-02T17:30:00").getTime();
+    const eventoFecha = new Date("2025-03-01T17:30:00").getTime();
     const countdownEl = document.getElementById("countdown");
 
     function actualizarContador() {
@@ -59,7 +62,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         countdownEl.innerHTML = `<span>${dias}</span>d <span>${horas}</span>h <span>${minutos}</span>m <span>${segundos}</span>s`;
     }
+    
     setInterval(actualizarContador, 1000);
+    actualizarContador();
 
     // ✅ Manejo de confirmación de asistencia con botón de añadir más invitados
     let invitadosGuardados = JSON.parse(localStorage.getItem("invitados")) || [];
@@ -86,9 +91,10 @@ document.addEventListener("DOMContentLoaded", function () {
         });
         contadorInvitados.textContent = invitadosGuardados.length;
     }
+    
     actualizarListaInvitados();
 
-    document.getElementById("rsvpForm").addEventListener("submit", function (e) {
+    rsvpForm.addEventListener("submit", function (e) {
         e.preventDefault();
         let nombre = document.getElementById("nombre").value;
         let apellido = document.getElementById("apellido").value;
@@ -98,6 +104,8 @@ document.addEventListener("DOMContentLoaded", function () {
             invitadosGuardados.push({ nombre, apellido, acompanantes });
             localStorage.setItem("invitados", JSON.stringify(invitadosGuardados));
             actualizarListaInvitados();
+            rsvpForm.reset();
+            acompanantesContainer.innerHTML = "";
         }
     });
 });
