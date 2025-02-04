@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let musicPlayer = new Audio("https://www.example.com/music.mp3"); // Reemplazar con URL real
     musicPlayer.loop = true;
     musicPlayer.volume = 0.5;
-    
+
     document.addEventListener("click", () => {
         musicPlayer.play().catch(() => console.log("Reproducción bloqueada por el navegador"));
     }, { once: true });
@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
         index = (index + 1) % totalSlides;
     }
-    
+
     showSlide();
     setInterval(showSlide, 3000);
 
@@ -78,12 +78,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         countdownEl.innerHTML = `<span>${dias}</span>d <span>${horas}</span>h <span>${minutos}</span>m <span>${segundos}</span>s`;
     }
-    
+
     setInterval(actualizarContador, 1000);
     actualizarContador();
 
-    // ✅ Manejo de confirmación de asistencia con botón de añadir más invitados
-    let invitadosGuardados = JSON.parse(localStorage.getItem("invitados")) || [];
+    // ✅ Manejo de confirmación de asistencia con Firebase
     const listaInvitados = document.getElementById("lista-invitados");
     const contadorInvitados = document.getElementById("contador-invitados");
     const rsvpForm = document.getElementById("rsvpForm");
@@ -98,17 +97,26 @@ document.addEventListener("DOMContentLoaded", function () {
         acompanantesContainer.appendChild(nuevoInput);
     });
 
-    function actualizarListaInvitados() {
+    function actualizarListaInvitados(snapshot) {
         listaInvitados.innerHTML = "";
-        invitadosGuardados.forEach(invitado => {
-            let nuevoInvitado = document.createElement("li");
-            nuevoInvitado.textContent = `${invitado.nombre} ${invitado.apellido}`;
-            listaInvitados.appendChild(nuevoInvitado);
+        let count = 0;
+
+        snapshot.forEach(function (childSnapshot) {
+            let data = childSnapshot.val();
+            let li = document.createElement("li");
+            li.textContent = `${data.nombre} ${data.apellido}`;
+            if (data.acompanantes && data.acompanantes.length > 0) {
+                li.textContent += ` (Acompañantes: ${data.acompanantes.join(", ")})`;
+            }
+            listaInvitados.appendChild(li);
+            count++;
         });
-        contadorInvitados.textContent = invitadosGuardados.length;
+
+        contadorInvitados.textContent = count;
     }
-    
-    actualizarListaInvitados();
+
+    // Cargar invitados en tiempo real desde Firebase
+    database.ref("invitados").on("value", actualizarListaInvitados);
 
     rsvpForm.addEventListener("submit", function (e) {
         e.preventDefault();
@@ -117,9 +125,14 @@ document.addEventListener("DOMContentLoaded", function () {
         let acompanantes = [...document.querySelectorAll(".acompanante")].map(input => input.value).filter(val => val !== "");
 
         if (nombre && apellido) {
-            invitadosGuardados.push({ nombre, apellido, acompanantes });
-            localStorage.setItem("invitados", JSON.stringify(invitadosGuardados));
-            actualizarListaInvitados();
+            let nuevoInvitado = database.ref("invitados").push();
+            nuevoInvitado.set({
+                nombre: nombre,
+                apellido: apellido,
+                acompanantes: acompanantes
+            });
+
+            // Resetear formulario y acompañantes
             rsvpForm.reset();
             acompanantesContainer.innerHTML = "";
         }
