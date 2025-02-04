@@ -1,20 +1,5 @@
-// Configuración de Firebase
-const firebaseConfig = {
-    apiKey: "AIzaSyASZ9upT2Rv0wfESt9dBvOBi-_trzmsE-U",
-    authDomain: "baby-shower-luca.firebaseapp.com",
-    databaseURL: "https://baby-shower-luca-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "baby-shower-luca",
-    storageBucket: "baby-shower-luca.appspot.com",
-    messagingSenderId: "1007298783013",
-    appId: "1:1007298783013:web:3b095422fac1e9bff1cc",
-    measurementId: "G-CJ5P4M14FE"
-};
-
-firebase.initializeApp(firebaseConfig);
-const database = firebase.database();
-
-// 🎉 Confeti al cargar la página
 document.addEventListener("DOMContentLoaded", function () {
+    // 🎉 Efecto de confeti al cargar la página
     confetti({
         particleCount: 200,
         spread: 80,
@@ -22,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // 🎵 Música de fondo con reproducción asegurada
-    let musicPlayer = new Audio("https://www.example.com/music.mp3");
+    let musicPlayer = new Audio("https://www.example.com/music.mp3"); // Reemplazar con URL real
     musicPlayer.loop = true;
     musicPlayer.volume = 0.5;
     
@@ -41,10 +26,16 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // 📸 Carrusel
+    // 📸 Carrusel de imágenes ajustando tamaño uniforme
     let index = 0;
     const slides = document.querySelectorAll(".carousel-slide img");
     const totalSlides = slides.length;
+
+    slides.forEach(img => {
+        img.style.width = "100%";
+        img.style.height = "300px";
+        img.style.objectFit = "cover";
+    });
 
     function showSlide() {
         slides.forEach((img, i) => {
@@ -52,11 +43,11 @@ document.addEventListener("DOMContentLoaded", function () {
         });
         index = (index + 1) % totalSlides;
     }
-
+    
     showSlide();
     setInterval(showSlide, 3000);
 
-    // 🕒 Contador regresivo
+    // 🕒 Contador regresivo con formato avanzado
     const eventoFecha = new Date("2025-03-01T17:30:00").getTime();
     const countdownEl = document.getElementById("countdown");
 
@@ -71,21 +62,50 @@ document.addEventListener("DOMContentLoaded", function () {
 
         countdownEl.innerHTML = `<span>${dias}</span>d <span>${horas}</span>h <span>${minutos}</span>m <span>${segundos}</span>s`;
     }
-
+    
     setInterval(actualizarContador, 1000);
     actualizarContador();
 
-    // ✅ Confirmación en Firebase
-    document.getElementById("rsvpForm").addEventListener("submit", function (e) {
+    // ✅ Manejo de confirmación de asistencia con botón de añadir más invitados
+    let invitadosGuardados = JSON.parse(localStorage.getItem("invitados")) || [];
+    const listaInvitados = document.getElementById("lista-invitados");
+    const contadorInvitados = document.getElementById("contador-invitados");
+    const rsvpForm = document.getElementById("rsvpForm");
+    const acompanantesContainer = document.getElementById("acompanantes-container");
+    const btnAgregarAcompanante = document.getElementById("agregar-acompanante");
+
+    btnAgregarAcompanante.addEventListener("click", function () {
+        let nuevoInput = document.createElement("input");
+        nuevoInput.type = "text";
+        nuevoInput.className = "acompanante";
+        nuevoInput.placeholder = "Nombre del acompañante";
+        acompanantesContainer.appendChild(nuevoInput);
+    });
+
+    function actualizarListaInvitados() {
+        listaInvitados.innerHTML = "";
+        invitadosGuardados.forEach(invitado => {
+            let nuevoInvitado = document.createElement("li");
+            nuevoInvitado.textContent = `${invitado.nombre} ${invitado.apellido}`;
+            listaInvitados.appendChild(nuevoInvitado);
+        });
+        contadorInvitados.textContent = invitadosGuardados.length;
+    }
+    
+    actualizarListaInvitados();
+
+    rsvpForm.addEventListener("submit", function (e) {
         e.preventDefault();
         let nombre = document.getElementById("nombre").value;
         let apellido = document.getElementById("apellido").value;
+        let acompanantes = [...document.querySelectorAll(".acompanante")].map(input => input.value).filter(val => val !== "");
 
-        database.ref("invitados").push({
-            nombre: nombre,
-            apellido: apellido
-        });
-
-        alert("Asistencia confirmada");
+        if (nombre && apellido) {
+            invitadosGuardados.push({ nombre, apellido, acompanantes });
+            localStorage.setItem("invitados", JSON.stringify(invitadosGuardados));
+            actualizarListaInvitados();
+            rsvpForm.reset();
+            acompanantesContainer.innerHTML = "";
+        }
     });
 });
