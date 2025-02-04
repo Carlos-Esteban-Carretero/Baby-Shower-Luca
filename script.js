@@ -6,13 +6,13 @@ document.addEventListener("DOMContentLoaded", function () {
         origin: { y: 0.6 }
     });
 
-    // 🎵 Música de fondo automática sin necesidad de interacción
+    // 🎵 Música de fondo con reproducción asegurada
     let musicPlayer = new Audio("https://www.example.com/music.mp3"); // Reemplazar con URL real
     musicPlayer.loop = true;
     musicPlayer.volume = 0.5;
-    musicPlayer.play().catch(() => {
-        document.body.addEventListener('click', () => musicPlayer.play(), { once: true });
-    });
+    document.addEventListener("click", () => {
+        musicPlayer.play().catch(() => console.log("Reproducción bloqueada por el navegador"));
+    }, { once: true });
 
     let muteButton = document.getElementById("muteMusic");
     muteButton.addEventListener("click", function () {
@@ -61,15 +61,21 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     setInterval(actualizarContador, 1000);
 
-    // ✅ Manejo de confirmación de asistencia con mayor espacio
+    // ✅ Manejo de confirmación de asistencia con botón de añadir más invitados
     let invitadosGuardados = JSON.parse(localStorage.getItem("invitados")) || [];
     const listaInvitados = document.getElementById("lista-invitados");
     const contadorInvitados = document.getElementById("contador-invitados");
     const rsvpForm = document.getElementById("rsvpForm");
-    rsvpForm.style.padding = "20px";
-    rsvpForm.style.marginTop = "20px";
-    rsvpForm.style.width = "90%";
-    rsvpForm.style.maxWidth = "500px";
+    const acompanantesContainer = document.getElementById("acompanantes-container");
+    const btnAgregarAcompanante = document.getElementById("agregar-acompanante");
+
+    btnAgregarAcompanante.addEventListener("click", function () {
+        let nuevoInput = document.createElement("input");
+        nuevoInput.type = "text";
+        nuevoInput.className = "acompanante";
+        nuevoInput.placeholder = "Nombre del acompañante";
+        acompanantesContainer.appendChild(nuevoInput);
+    });
 
     function actualizarListaInvitados() {
         listaInvitados.innerHTML = "";
@@ -86,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
         e.preventDefault();
         let nombre = document.getElementById("nombre").value;
         let apellido = document.getElementById("apellido").value;
-        let acompanantes = document.getElementById("acompanantes").value;
+        let acompanantes = [...document.querySelectorAll(".acompanante")].map(input => input.value).filter(val => val !== "");
 
         if (nombre && apellido) {
             invitadosGuardados.push({ nombre, apellido, acompanantes });
