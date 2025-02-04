@@ -9,9 +9,9 @@ document.addEventListener("DOMContentLoaded", function () {
     // 🎵 Música de fondo automática sin necesidad de interacción
     let musicPlayer = new Audio("https://www.example.com/music.mp3"); // Reemplazar con URL real
     musicPlayer.loop = true;
-    document.body.addEventListener('click', () => musicPlayer.play(), { once: true }); // Fuerza la reproducción en algunos navegadores
+    musicPlayer.volume = 0.5;
     musicPlayer.play().catch(() => {
-        console.log("La reproducción automática fue bloqueada por el navegador. El usuario debe interactuar primero.");
+        document.body.addEventListener('click', () => musicPlayer.play(), { once: true });
     });
 
     let muteButton = document.getElementById("muteMusic");
@@ -25,10 +25,15 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // 📸 Carrusel de imágenes mostrando una foto a la vez
+    // 📸 Carrusel de imágenes ajustando tamaño uniforme
     let index = 0;
     const slides = document.querySelectorAll(".carousel-slide img");
     const totalSlides = slides.length;
+    slides.forEach(img => {
+        img.style.width = "100%";
+        img.style.height = "300px";
+        img.style.objectFit = "cover";
+    });
 
     function showSlide() {
         slides.forEach((img, i) => {
@@ -56,10 +61,15 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     setInterval(actualizarContador, 1000);
 
-    // ✅ Manejo de confirmación de asistencia y lista de invitados con mejor separación
+    // ✅ Manejo de confirmación de asistencia con mayor espacio
     let invitadosGuardados = JSON.parse(localStorage.getItem("invitados")) || [];
     const listaInvitados = document.getElementById("lista-invitados");
     const contadorInvitados = document.getElementById("contador-invitados");
+    const rsvpForm = document.getElementById("rsvpForm");
+    rsvpForm.style.padding = "20px";
+    rsvpForm.style.marginTop = "20px";
+    rsvpForm.style.width = "90%";
+    rsvpForm.style.maxWidth = "500px";
 
     function actualizarListaInvitados() {
         listaInvitados.innerHTML = "";
