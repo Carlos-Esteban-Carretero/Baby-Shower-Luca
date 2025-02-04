@@ -6,10 +6,13 @@ document.addEventListener("DOMContentLoaded", function () {
         origin: { y: 0.6 }
     });
 
-    // 🎵 Música de fondo automática con botón flotante para silenciar
+    // 🎵 Música de fondo automática sin necesidad de interacción
     let musicPlayer = new Audio("https://www.example.com/music.mp3"); // Reemplazar con URL real
     musicPlayer.loop = true;
-    musicPlayer.play();
+    document.body.addEventListener('click', () => musicPlayer.play(), { once: true }); // Fuerza la reproducción en algunos navegadores
+    musicPlayer.play().catch(() => {
+        console.log("La reproducción automática fue bloqueada por el navegador. El usuario debe interactuar primero.");
+    });
 
     let muteButton = document.getElementById("muteMusic");
     muteButton.addEventListener("click", function () {
@@ -22,16 +25,19 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // 📸 Carrusel automático
+    // 📸 Carrusel de imágenes mostrando una foto a la vez
     let index = 0;
-    const slides = document.querySelector(".carousel-slide");
-    const totalSlides = slides.children.length;
+    const slides = document.querySelectorAll(".carousel-slide img");
+    const totalSlides = slides.length;
 
-    function moveSlide() {
+    function showSlide() {
+        slides.forEach((img, i) => {
+            img.style.display = i === index ? "block" : "none";
+        });
         index = (index + 1) % totalSlides;
-        slides.style.transform = `translateX(-${index * 100}%)`;
     }
-    setInterval(moveSlide, 3000);
+    showSlide();
+    setInterval(showSlide, 3000);
 
     // 🕒 Contador regresivo con formato avanzado
     const eventoFecha = new Date("2025-03-02T17:30:00").getTime();
@@ -50,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     setInterval(actualizarContador, 1000);
 
-    // ✅ Manejo de confirmación de asistencia y lista de invitados
+    // ✅ Manejo de confirmación de asistencia y lista de invitados con mejor separación
     let invitadosGuardados = JSON.parse(localStorage.getItem("invitados")) || [];
     const listaInvitados = document.getElementById("lista-invitados");
     const contadorInvitados = document.getElementById("contador-invitados");
