@@ -17,12 +17,12 @@ document.addEventListener("DOMContentLoaded", function () {
         (function frame() {
             confetti({
                 particleCount: 5, 
-                spread: 120, // Más dispersión para cubrir toda la pantalla
-                startVelocity: 8, // Velocidad de caída más baja
-                ticks: 300, // Mayor duración de cada partícula
-                gravity: 0.3, // Efecto de caída más realista
-                scalar: 0.8, // Tamaño más pequeño
-                origin: { x: Math.random(), y: -0.1 } // Aparece en diferentes posiciones en la parte superior
+                spread: 120,
+                startVelocity: 8,
+                ticks: 300,
+                gravity: 0.3,
+                scalar: 0.8,
+                origin: { x: Math.random(), y: -0.1 }
             });
 
             if (Date.now() < end) {
@@ -31,27 +31,32 @@ document.addEventListener("DOMContentLoaded", function () {
         })();
     }
 
-    // Disparar confeti después de 1 segundo
     setTimeout(lanzarConfeti, 1000);
 
-    // 🔄 Carrusel de imágenes corregido
+    // 🔄 **Carrusel de imágenes corregido**
     let index = 0;
-    const slides = document.querySelectorAll(".carousel-slide img");
+    const slides = document.querySelectorAll(".carousel-container img");
 
     function cambiarImagen() {
         slides.forEach((img, i) => {
-            img.style.display = "none"; // Oculta todas las imágenes
+            img.style.opacity = "0"; // Oculta todas las imágenes con opacidad
         });
-        slides[index].style.display = "block"; // Muestra solo la imagen actual
+
+        slides[index].style.opacity = "1"; // Muestra solo la imagen actual
         index = (index + 1) % slides.length; // Pasa a la siguiente imagen
     }
 
     if (slides.length > 0) {
-        cambiarImagen(); // Inicia con la primera imagen visible
+        slides.forEach((img, i) => {
+            img.style.transition = "opacity 1s ease-in-out"; // Agrega transición suave
+            img.style.opacity = "0"; // Asegura que todas las imágenes inicien ocultas
+        });
+
+        slides[0].style.opacity = "1"; // Muestra la primera imagen inicialmente
         setInterval(cambiarImagen, 2500); // Cambia cada 2.5 segundos
     }
 
-    // 🔥 🔥 🔥 RESTAURANDO FIREBASE 🔥 🔥 🔥
+    // 🔥 🔥 🔥 FIREBASE 🔥 🔥 🔥
     const db = firebase.database();
     const listaInvitados = document.getElementById("lista-invitados");
     const contadorInvitados = document.getElementById("contador-invitados");
