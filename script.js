@@ -10,22 +10,28 @@ const firebaseConfig = {
     measurementId: "G-CJ5P4M14FE"
 };
 
-// ✅ Inicializar Firebase
-firebase.initializeApp(firebaseConfig);
-const database = firebase.database();
-console.log("✅ Firebase inicializado correctamente.");
-
-// 🎵 Música de fondo
-let musicPlayer = new Audio("https://www.example.com/music.mp3"); // Reemplaza con tu URL real
-musicPlayer.loop = true;
-musicPlayer.volume = 0.5;
-
-document.addEventListener("click", () => {
-    musicPlayer.play().catch(() => console.log("Reproducción bloqueada por el navegador"));
-}, { once: true });
-
+// ✅ Esperar a que Firebase se cargue antes de inicializarlo
 document.addEventListener("DOMContentLoaded", function () {
-    console.log("✅ Script cargado correctamente");
+    console.log("✅ Documento cargado, inicializando Firebase...");
+
+    // Cargar Firebase App y Database
+    if (typeof firebase !== "undefined") {
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+        console.log("🔥 Firebase inicializado correctamente.");
+    } else {
+        console.error("❌ Error: Firebase no está definido. Verifica la carga de los scripts en el HTML.");
+        return;
+    }
+
+    // 🎵 Música de fondo
+    let musicPlayer = new Audio("https://www.example.com/music.mp3"); // Reemplaza con tu URL real
+    musicPlayer.loop = true;
+    musicPlayer.volume = 0.5;
+
+    document.addEventListener("click", () => {
+        musicPlayer.play().catch(() => console.log("Reproducción bloqueada por el navegador"));
+    }, { once: true });
 
     // 🔇 Botón de silenciar música
     let muteButton = document.getElementById("muteMusic");
@@ -92,13 +98,13 @@ document.addEventListener("DOMContentLoaded", function () {
     // 📌 Guardar en Firebase
     rsvpForm.addEventListener("submit", function (e) {
         e.preventDefault();
-        
+
         let nombre = document.getElementById("nombre").value.trim();
         let apellido = document.getElementById("apellido").value.trim();
         let acompanantes = [...document.querySelectorAll(".acompanante")].map(input => input.value.trim()).filter(val => val !== "");
 
         if (nombre && apellido) {
-            let nuevoInvitado = database.ref("invitados").push();
+            let nuevoInvitado = firebase.database().ref("invitados").push();
             nuevoInvitado.set({
                 nombre: nombre,
                 apellido: apellido,
@@ -134,5 +140,5 @@ document.addEventListener("DOMContentLoaded", function () {
         contadorInvitados.textContent = count;
     }
 
-    database.ref("invitados").on("value", actualizarListaInvitados);
+    firebase.database().ref("invitados").on("value", actualizarListaInvitados);
 });
