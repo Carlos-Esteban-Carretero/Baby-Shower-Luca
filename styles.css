@@ -1,81 +1,71 @@
-document.addEventListener("DOMContentLoaded", function () {
-    console.log("✅ Página cargada correctamente");
+/* 🎨 Estilos Generales */
+body {
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    background-color: #e0f7fa;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
 
-    // 🔹 Animación del título con GSAP
-    gsap.from("#titulo", { 
-        duration: 1.5, 
-        opacity: 0, 
-        y: -50, 
-        ease: "bounce.out" 
-    });
+/* 🌟 Encabezado */
+header {
+    background-color: #4fc3f7;
+    padding: 40px;
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    animation: fadeInDown 1s ease-in-out;
+}
 
-    // 🎠 Carrusel funcional
-    const slides = document.querySelectorAll(".carousel-slide");
-    const carouselContainer = document.querySelector(".carousel-container");
-    let index = 0;
+/* 🎉 Animación del título */
+#titulo {
+    font-size: 40px;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    margin-top: 20px;
+    animation: fadeIn 1.5s ease-in-out;
+}
 
-    function cambiarImagen() {
-        index = (index + 1) % slides.length;
-        const desplazamiento = -index * 100; 
-        carouselContainer.style.transform = `translateX(${desplazamiento}%)`;
-    }
+/* 📍 Secciones */
+section {
+    margin: 30px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 900px;
+    animation: fadeInUp 1s ease-in-out;
+}
 
-    setInterval(cambiarImagen, 3000);
+/* 🎠 Estilos del carrusel */
+#carousel {
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+    overflow: hidden;
+    border-radius: 10px;
+    position: relative;
+}
 
-    // 🔥 🔥 🔥 FIREBASE 🔥 🔥 🔥
-    const db = firebase.database();
-    const listaInvitados = document.getElementById("lista-invitados");
-    const contadorInvitados = document.getElementById("contador-invitados");
-    const rsvpForm = document.getElementById("rsvpForm");
-    const acompanantesContainer = document.getElementById("acompanantes-container");
-    const btnAgregarAcompanante = document.getElementById("agregar-acompanante");
+.carousel-container {
+    display: flex;
+    width: 300%;
+    transition: transform 1s ease-in-out;
+}
 
-    // ➕ Agregar acompañantes
-    btnAgregarAcompanante.addEventListener("click", function () {
-        let nuevoInput = document.createElement("input");
-        nuevoInput.type = "text";
-        nuevoInput.className = "acompanante";
-        nuevoInput.placeholder = "Nombre del acompañante";
-        acompanantesContainer.appendChild(nuevoInput);
-    });
+.carousel-slide {
+    width: 100%;
+    flex: 0 0 100%;
+}
 
-    // 📌 Guardar en Firebase
-    rsvpForm.addEventListener("submit", function (e) {
-        e.preventDefault();
-        
-        let nombre = document.getElementById("nombre").value.trim();
-        let apellido = document.getElementById("apellido").value.trim();
-        let acompanantes = [...document.querySelectorAll(".acompanante")].map(input => input.value.trim()).filter(val => val !== "");
-
-        if (nombre && apellido) {
-            let nuevoInvitado = db.ref("invitados").push();
-            nuevoInvitado.set({
-                nombre: nombre,
-                apellido: apellido,
-                acompanantes: acompanantes
-            }).then(() => {
-                console.log("🎉 Invitado registrado con éxito en Firebase");
-                rsvpForm.reset();
-                acompanantesContainer.innerHTML = "";
-            }).catch(error => {
-                console.error("❌ Error al guardar en Firebase:", error);
-            });
-        } else {
-            alert("Por favor, completa tu nombre y apellido.");
-        }
-    });
-
-    // 📌 Mostrar invitados en tiempo real desde Firebase
-    db.ref("invitados").on("value", (snapshot) => {
-        listaInvitados.innerHTML = "";
-        let count = 0;
-        snapshot.forEach(childSnapshot => {
-            let data = childSnapshot.val();
-            let li = document.createElement("li");
-            li.textContent = `${data.nombre} ${data.apellido}`;
-            listaInvitados.appendChild(li);
-            count++;
-        });
-        contadorInvitados.textContent = count;
-    });
-});
+.carousel-slide img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    display: block;
+}
