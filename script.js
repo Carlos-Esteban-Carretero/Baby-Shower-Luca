@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     console.log("✅ Página cargada correctamente");
 
-    // 🔹 Animación del título
+    // 🔹 Animación del título con GSAP
     gsap.from("#titulo", { 
         duration: 1.5, 
         opacity: 0, 
@@ -13,14 +13,16 @@ document.addEventListener("DOMContentLoaded", function () {
     function lanzarConfeti() {
         confetti({
             particleCount: 120,
-            spread: 80,
-            origin: { y: 0.6 }
+            spread: 100,
+            startVelocity: 30,
+            origin: { y: 0.6 },
         });
     }
 
-    // Esperar 500ms después de cargar la página para mostrar confeti
-    setTimeout(lanzarConfeti, 800);
+    // Disparar confeti después de 1 segundo
+    setTimeout(lanzarConfeti, 1000);
 });
+
 
 
 
