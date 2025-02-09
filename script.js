@@ -33,21 +33,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
     setTimeout(lanzarConfeti, 1000);
 
-   // 🎠 **Carrusel corregido**
+    // 🎠 **Corrección del Carrusel**
     const slides = document.querySelectorAll(".carousel-slide");
     const carouselContainer = document.querySelector(".carousel-container");
     let index = 0;
 
     function cambiarImagen() {
+        slides.forEach((slide, i) => {
+            slide.style.display = i === index ? "block" : "none";
+        });
+
         index = (index + 1) % slides.length;
-        const desplazamiento = -index * 100;
-        carouselContainer.style.transform = `translateX(${desplazamiento}%)`;
     }
 
-    setInterval(cambiarImagen, 2500); // Cambia cada 2.5 segundos
+    if (slides.length > 0) {
+        setInterval(cambiarImagen, 2500);
     }
 
-    // 🔥 🔥 🔥 FIREBASE 🔥 🔥 🔥
+    // 🔥 🔥 🔥 FIREBASE RESTAURADO 🔥 🔥 🔥
     const db = firebase.database();
     const listaInvitados = document.getElementById("lista-invitados");
     const contadorInvitados = document.getElementById("contador-invitados");
