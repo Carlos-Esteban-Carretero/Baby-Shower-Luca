@@ -9,19 +9,19 @@ document.addEventListener("DOMContentLoaded", function () {
         ease: "bounce.out" 
     });
 
-    // 🎉 Confeti extendido por toda la pantalla con más duración y visibilidad
+    // 🎉 Confeti solo desde el lado izquierdo con 5 segundos de duración
     function lanzarConfeti() {
-        let duracion = 10000; // 10 segundos de duración
+        let duracion = 5000; // 5 segundos de duración
         let end = Date.now() + duracion;
 
         (function frame() {
             confetti({
-                particleCount: 15,
-                spread: 360, // Cobertura total
-                startVelocity: 50,
-                ticks: 200, // Duración extendida de cada partícula
-                gravity: 0.6, // Caída más lenta para mejor visibilidad
-                origin: { x: Math.random(), y: Math.random() } // Generación aleatoria en toda la pantalla
+                particleCount: 10,
+                spread: 100, // Menos dispersión
+                startVelocity: 40,
+                ticks: 100, // Duración extendida de cada partícula
+                gravity: 0.6, // Caída más suave
+                origin: { x: 0, y: Math.random() * 0.8 } // Confeti solo desde el lado izquierdo
             });
 
             if (Date.now() < end) {
