@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     console.log("✅ Página cargada correctamente");
 
-    // 🔹 Animación del título con GSAP
     gsap.from("#titulo", { 
         duration: 1.5, 
         opacity: 0, 
@@ -22,25 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     setInterval(cambiarImagen, 3000);
 
-    // 🔥 🔥 🔥 FIREBASE CONFIGURADO CORRECTAMENTE 🔥 🔥 🔥
-    const firebaseConfig = {
-        apiKey: "AIzaSyASZ9upT2Rv0wfESt9dBvOBi-_trzmsE-U",
-        authDomain: "baby-shower-luca.firebaseapp.com",
-        databaseURL: "https://baby-shower-luca-default-rtdb.europe-west1.firebasedatabase.app",
-        projectId: "baby-shower-luca",
-        storageBucket: "baby-shower-luca.appspot.com",
-        messagingSenderId: "1007298783013",
-        appId: "1:1007298783013:web:3b095422fac1e9bff1cc",
-        measurementId: "G-CJ5P4M14FE"
-    };
-
-    // **✅ Verificar si Firebase ya está inicializado antes de inicializarlo**
-    if (!firebase.apps.length) {
-        firebase.initializeApp(firebaseConfig);
-    } else {
-        firebase.app(); // Si ya está inicializado, usar la app existente
-    }
-
+    // 🔥 Firebase
     const db = firebase.database();
     const listaInvitados = document.getElementById("lista-invitados");
     const contadorInvitados = document.getElementById("contador-invitados");
@@ -48,7 +29,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const acompanantesContainer = document.getElementById("acompanantes-container");
     const btnAgregarAcompanante = document.getElementById("agregar-acompanante");
 
-    // ➕ Agregar acompañantes
     btnAgregarAcompanante.addEventListener("click", function () {
         let nuevoInput = document.createElement("input");
         nuevoInput.type = "text";
@@ -57,7 +37,6 @@ document.addEventListener("DOMContentLoaded", function () {
         acompanantesContainer.appendChild(nuevoInput);
     });
 
-    // 📌 Guardar en Firebase
     rsvpForm.addEventListener("submit", function (e) {
         e.preventDefault();
         
@@ -72,18 +51,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 apellido: apellido,
                 acompanantes: acompanantes
             }).then(() => {
-                console.log("🎉 Invitado registrado con éxito en Firebase");
                 rsvpForm.reset();
                 acompanantesContainer.innerHTML = "";
-            }).catch(error => {
-                console.error("❌ Error al guardar en Firebase:", error);
             });
         } else {
             alert("Por favor, completa tu nombre y apellido.");
         }
     });
 
-    // 📌 Mostrar invitados en tiempo real desde Firebase
     db.ref("invitados").on("value", (snapshot) => {
         listaInvitados.innerHTML = "";
         let count = 0;
