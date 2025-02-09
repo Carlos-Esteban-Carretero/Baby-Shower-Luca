@@ -19,13 +19,10 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Disparar confeti después de 1 segundo
+    // ⏳ Disparar confeti después de 1 segundo
     setTimeout(lanzarConfeti, 1000);
-});
 
-
-
-
+    // 🔹 Configuración de Firebase
     const db = firebase.database();
     const listaInvitados = document.getElementById("lista-invitados");
     const contadorInvitados = document.getElementById("contador-invitados");
@@ -68,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // 📌 Mostrar invitados en tiempo real
+    // 📌 Mostrar invitados en tiempo real desde Firebase
     db.ref("invitados").on("value", (snapshot) => {
         listaInvitados.innerHTML = "";
         let count = 0;
