@@ -10,12 +10,28 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <!-- Scripts de animaciones -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.0.1" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.0.1"></script>
 
     <!-- Scripts de Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js" defer></script>
-    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js"></script>
+
+    <!-- Inicialización de Firebase -->
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyASZ9upT2Rv0wfESt9dBvOBi-_trzmsE-U",
+            authDomain: "baby-shower-luca.firebaseapp.com",
+            databaseURL: "https://baby-shower-luca-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "baby-shower-luca",
+            storageBucket: "baby-shower-luca.appspot.com",
+            messagingSenderId: "1007298783013",
+            appId: "1:1007298783013:web:3b095422fac1e9bff1cc",
+            measurementId: "G-CJ5P4M14FE"
+        };
+        firebase.initializeApp(firebaseConfig);
+        console.log("🔥 Firebase inicializado correctamente.");
+    </script>
 
     <!-- Script principal -->
     <script src="script.js" defer></script>
@@ -54,7 +70,7 @@
     <section id="video">
         <h2>Video Especial</h2>
         <video controls>
-            <source src="video.mp4" type="video/mp4">
+            <source src="https://tu-enlace-de-video.mp4" type="video/mp4">
             Tu navegador no soporta el video.
         </video>
     </section>
