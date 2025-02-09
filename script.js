@@ -33,9 +33,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     setTimeout(lanzarConfeti, 1000);
 
-    // 🎠 **Corrección del Carrusel**
-    const slides = document.querySelectorAll(".carousel-slide img");
+    // 🎠 **Corrección definitiva del Carrusel**
+    const slides = document.querySelectorAll(".carousel-slide");
     const carouselContainer = document.querySelector(".carousel-container");
+    const carousel = document.querySelector("#carousel");
     let index = 0;
 
     function cambiarImagen() {
