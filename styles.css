@@ -61,30 +61,60 @@ section {
     background-color: rgba(255, 255, 255, 1);
 }
 
-/* 🎠 Estilos para el carrusel */
+/* 🎠 Carrusel */
 #carousel {
     width: 80%;
     max-width: 600px;
     margin: auto;
     overflow: hidden;
     border-radius: 10px;
+    position: relative;
 }
 
 .carousel-container {
     display: flex;
-    width: 100%;
+    align-items: center;
+    justify-content: center;
     position: relative;
 }
 
 .carousel-slide {
-    min-width: 100%;
-    transition: opacity 1s ease-in-out;
+    display: none;
+    width: 100%;
+    text-align: center;
 }
 
 .carousel-slide img {
     width: 100%;
+    height: 400px; /* Se fija la altura para que todas sean iguales */
+    object-fit: cover; /* Asegura que todas se ajusten sin deformarse */
     border-radius: 10px;
+}
+
+/* Mostrar solo la primera imagen al inicio */
+.carousel-slide.active {
     display: block;
+}
+
+/* Botones del carrusel */
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 24px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#prev { left: 10px; }
+#next { right: 10px; }
+
+.carousel-btn:hover {
+    background: rgba(0, 0, 0, 0.8);
 }
 
 
