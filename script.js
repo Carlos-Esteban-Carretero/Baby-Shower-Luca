@@ -33,23 +33,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
     setTimeout(lanzarConfeti, 1000);
 
-    // 🎠 **Carrusel de imágenes corregido**
-    let index = 0;
+    // 🎠 **Carrusel de imágenes FINAL**
     const slides = document.querySelectorAll(".carousel-slide img");
-    const totalSlides = slides.length;
-
+    const carouselContainer = document.querySelector(".carousel-container");
+    let index = 0;
+    
     function cambiarImagen() {
-        slides.forEach((img, i) => {
-            img.style.opacity = (i === index) ? "1" : "0"; // Solo una imagen visible
-        });
+        // Ajustar el `transform` para que se desplace correctamente sin mostrar imágenes a los lados
+        const desplazamiento = -index * 100; 
+        carouselContainer.style.transform = `translateX(${desplazamiento}%)`;
 
-        index = (index + 1) % totalSlides;
+        index = (index + 1) % slides.length; // Ir cambiando de imagen en bucle
     }
 
-    // Inicializar el carrusel correctamente
-    if (totalSlides > 0) {
-        slides.forEach(img => img.style.opacity = "0");
-        slides[0].style.opacity = "1";
+    // Ajustar el contenedor del carrusel correctamente
+    if (slides.length > 0) {
+        carouselContainer.style.display = "flex";
+        carouselContainer.style.width = `${slides.length * 100}%`; // Ajusta el ancho total dinámicamente
+        slides.forEach(img => img.style.width = "100%"); // Hace que cada imagen ocupe el 100% del contenedor
+
         setInterval(cambiarImagen, 2500); // Cambia cada 2.5 segundos
     }
 
