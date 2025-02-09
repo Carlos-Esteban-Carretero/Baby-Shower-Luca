@@ -19,10 +19,10 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // ⏳ Disparar confeti después de 1 segundo
+    // Disparar confeti después de 1 segundo
     setTimeout(lanzarConfeti, 1000);
 
-    // 🔹 Configuración de Firebase
+    // 🔥 Firebase configuración y referencia a la base de datos
     const db = firebase.database();
     const listaInvitados = document.getElementById("lista-invitados");
     const contadorInvitados = document.getElementById("contador-invitados");
@@ -78,4 +78,4 @@ document.addEventListener("DOMContentLoaded", function () {
         });
         contadorInvitados.textContent = count;
     });
-}); // 🔥 Esta es la única llave de cierre necesaria
+});
