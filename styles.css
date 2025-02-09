@@ -61,7 +61,7 @@ section {
     background-color: rgba(255, 255, 255, 1);
 }
 
-/* 🎠 Ajustes para el carrusel */
+/* 🎠 Carrusel */
 #carousel {
     width: 80%;
     max-width: 600px;
@@ -73,27 +73,21 @@ section {
 
 .carousel-container {
     display: flex;
-    width: 100%;
-    height: 400px; /* Altura fija para todas las imágenes */
-    align-items: center;
-    justify-content: center;
-    position: relative;
+    width: 300%; /* 3 imágenes, cada una con el 100% del viewport */
+    transition: transform 1s ease-in-out;
 }
 
 .carousel-slide {
-    min-width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 100%;
+    flex: 0 0 100%;
 }
 
 .carousel-slide img {
     width: 100%;
-    height: 100%;
-    object-fit: cover; /* Asegura que las imágenes se ajusten sin distorsionarse */
-    border-radius: 10px;
     display: block;
+    border-radius: 10px;
 }
+
 
 
 
