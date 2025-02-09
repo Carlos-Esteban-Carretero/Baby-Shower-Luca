@@ -33,14 +33,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     setTimeout(lanzarConfeti, 1000);
 
-    // 🎠 **Carrusel de imágenes funcional**
-    let index = 0;
-    const slides = document.querySelectorAll(".carousel-slide");
-    const totalSlides = slides.length;
-
-    function cambiarImagen() {
+     function cambiarImagen() {
         slides.forEach((slide, i) => {
-            slide.style.display = (i === index) ? "block" : "none";
+            slide.style.opacity = (i === index) ? "1" : "0";
         });
 
         index = (index + 1) % totalSlides;
@@ -48,8 +43,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Mostrar la primera imagen al inicio
     if (totalSlides > 0) {
-        cambiarImagen();
-        setInterval(cambiarImagen, 2500); // Cambia cada 2.5 segundos
+        slides.forEach(slide => slide.style.opacity = "0");
+        slides[0].style.opacity = "1";
+        setInterval(cambiarImagen, 2500);
     }
 
     // 🔥 🔥 🔥 FIREBASE 🔥 🔥 🔥
