@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let musicPlayer = new Audio("https://www.example.com/music.mp3"); // Reemplazar con URL real
     musicPlayer.loop = true;
     musicPlayer.volume = 0.5;
-    
+
     document.addEventListener("click", () => {
         musicPlayer.play().catch(() => console.log("Reproducción bloqueada por el navegador"));
     }, { once: true });
@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
         index = (index + 1) % totalSlides;
     }
-    
+
     showSlide();
     setInterval(showSlide, 3000);
 
@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         countdownEl.innerHTML = `<span>${dias}</span>d <span>${horas}</span>h <span>${minutos}</span>m <span>${segundos}</span>s`;
     }
-    
+
     setInterval(actualizarContador, 1000);
     actualizarContador();
 
@@ -120,9 +120,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     rsvpForm.addEventListener("submit", function (e) {
         e.preventDefault();
-        let nombre = document.getElementById("nombre").value;
-        let apellido = document.getElementById("apellido").value;
-        let acompanantes = [...document.querySelectorAll(".acompanante")].map(input => input.value).filter(val => val !== "");
+        let nombre = document.getElementById("nombre").value.trim();
+        let apellido = document.getElementById("apellido").value.trim();
+        let acompanantes = [...document.querySelectorAll(".acompanante")]
+            .map(input => input.value.trim())
+            .filter(val => val !== "");
 
         if (nombre && apellido) {
             let nuevoInvitado = database.ref("invitados").push();
