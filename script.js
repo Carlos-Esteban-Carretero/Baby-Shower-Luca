@@ -1,18 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     console.log("✅ Página cargada correctamente");
 
-    // 🔄 Carrusel de imágenes (Corrección para que funcione correctamente)
-    let index = 0;
-    const slides = document.querySelectorAll(".carousel-slide img"); // Selecciona las imágenes dentro del contenedor
-    function cambiarImagen() {
-        slides.forEach((img, i) => {
-            img.style.display = i === index ? "block" : "none"; // Solo muestra una imagen a la vez
-        });
-        index = (index + 1) % slides.length;
-    }
-    setInterval(cambiarImagen, 2500); // Cambia la imagen cada 2.5 segundos
-    cambiarImagen(); // Inicia mostrando la primera imagen
-
     // 🔹 Animación del título con GSAP
     gsap.from("#titulo", { 
         duration: 1.5, 
@@ -21,20 +9,20 @@ document.addEventListener("DOMContentLoaded", function () {
         ease: "bounce.out" 
     });
 
-    // 🎉 Confeti cayendo lentamente desde arriba durante 5 segundos
+    // 🎉 Confeti cayendo suavemente desde arriba en el centro
     function lanzarConfeti() {
         let duracion = 5000; // 5 segundos de duración
         let end = Date.now() + duracion;
 
         (function frame() {
             confetti({
-                particleCount: 2, // Menos partículas por ráfaga para un efecto más ligero
-                spread: 50, // Menos dispersión
-                startVelocity: 5, // Caída más lenta
-                ticks: 200, // Aumenta la duración de cada partícula
-                gravity: 0.1, // Simula una caída más suave
-                scalar: 0.8, // Tamaño de los confetis más pequeño
-                origin: { x: 0.5, y: -0.1 } // Aparece desde el centro arriba de la pantalla
+                particleCount: 5, 
+                spread: 40, 
+                startVelocity: 5, // Velocidad más baja para caída lenta
+                ticks: 200, 
+                gravity: 0.1, 
+                scalar: 1, 
+                origin: { x: 0.5, y: -0.1 } // Sale desde el centro y arriba
             });
 
             if (Date.now() < end) {
@@ -46,7 +34,24 @@ document.addEventListener("DOMContentLoaded", function () {
     // Disparar confeti después de 1 segundo
     setTimeout(lanzarConfeti, 1000);
 
-    // 🔥 Restaurando Firebase 🔥
+    // 🔄 Carrusel de imágenes funcional
+    let index = 0;
+    const slides = document.querySelectorAll(".carousel-slide img"); // Asegurarse de seleccionar las imágenes
+    const totalSlides = slides.length;
+
+    function cambiarImagen() {
+        slides.forEach((img, i) => {
+            img.style.display = i === index ? "block" : "none"; // Mostrar solo la imagen activa
+        });
+        index = (index + 1) % totalSlides;
+    }
+
+    if (slides.length > 0) {
+        cambiarImagen(); // Iniciar con la primera imagen visible
+        setInterval(cambiarImagen, 2500); // Cambia cada 2.5 segundos
+    }
+
+    // 🔥 🔥 🔥 RESTAURANDO FIREBASE 🔥 🔥 🔥
     const db = firebase.database();
     const listaInvitados = document.getElementById("lista-invitados");
     const contadorInvitados = document.getElementById("contador-invitados");
