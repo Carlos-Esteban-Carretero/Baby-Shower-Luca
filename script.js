@@ -1,6 +1,21 @@
 document.addEventListener("DOMContentLoaded", function () {
     console.log("✅ Página cargada correctamente");
 
+    // 🔄 Carrusel de imágenes
+    let index = 0;
+    const slides = document.querySelectorAll(".carousel-slide");
+    slides[index].classList.add("active");
+
+    function cambiarImagen() {
+        slides[index].classList.remove("active");
+        index = (index + 1) % slides.length;
+        slides[index].classList.add("active");
+    }
+
+    setInterval(cambiarImagen, 2500); // Cambia la imagen cada 2.5 segundos
+});
+
+
     // 🔹 Animación del título con GSAP
     gsap.from("#titulo", { 
         duration: 1.5, 
