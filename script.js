@@ -9,34 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
         ease: "bounce.out" 
     });
 
-    // 🎉 Confeti cayendo desde arriba por toda la pantalla
-    function lanzarConfeti() {
-        let duracion = 3000; 
-        let end = Date.now() + duracion;
-
-        (function frame() {
-            confetti({
-                particleCount: 3, 
-                spread: 120,
-                startVelocity: 8,
-                ticks: 300,
-                gravity: 0.3,
-                scalar: 0.8,
-                origin: { x: Math.random(), y: -0.1 }
-            });
-
-            if (Date.now() < end) {
-                requestAnimationFrame(frame);
-            }
-        })();
-    }
-
-    setTimeout(lanzarConfeti, 1000);
-
-  document.addEventListener("DOMContentLoaded", function () {
-    console.log("✅ Página cargada correctamente");
-
-    // 🎠 Carrusel de imágenes funcional
+    // 🎠 Carrusel funcional
     const slides = document.querySelectorAll(".carousel-slide");
     const carouselContainer = document.querySelector(".carousel-container");
     let index = 0;
@@ -47,9 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
         carouselContainer.style.transform = `translateX(${desplazamiento}%)`;
     }
 
-    setInterval(cambiarImagen, 3000); // Cambia cada 3 segundos
-});
-
+    setInterval(cambiarImagen, 3000);
 
     // 🔥 🔥 🔥 FIREBASE 🔥 🔥 🔥
     const db = firebase.database();
@@ -107,5 +78,4 @@ document.addEventListener("DOMContentLoaded", function () {
         });
         contadorInvitados.textContent = count;
     });
-
-}); // ✅ Cierre correcto de la función principal
+});
