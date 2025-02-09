@@ -22,7 +22,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
     setInterval(cambiarImagen, 3000);
 
-    // 🔥 🔥 🔥 FIREBASE 🔥 🔥 🔥
+    // 🔥 🔥 🔥 FIREBASE CONFIGURADO CORRECTAMENTE 🔥 🔥 🔥
+    const firebaseConfig = {
+        apiKey: "AIzaSyASZ9upT2Rv0wfESt9dBvOBi-_trzmsE-U",
+        authDomain: "baby-shower-luca.firebaseapp.com",
+        databaseURL: "https://baby-shower-luca-default-rtdb.europe-west1.firebasedatabase.app",
+        projectId: "baby-shower-luca",
+        storageBucket: "baby-shower-luca.appspot.com",
+        messagingSenderId: "1007298783013",
+        appId: "1:1007298783013:web:3b095422fac1e9bff1cc",
+        measurementId: "G-CJ5P4M14FE"
+    };
+
+    // **Inicializa Firebase** (Esto faltaba en el código)
+    firebase.initializeApp(firebaseConfig);
+    
     const db = firebase.database();
     const listaInvitados = document.getElementById("lista-invitados");
     const contadorInvitados = document.getElementById("contador-invitados");
