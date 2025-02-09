@@ -61,41 +61,32 @@ section {
     background-color: rgba(255, 255, 255, 1);
 }
 
-/* 🎠 Carrusel de imágenes */
+/* 🎠 Estilos para el carrusel */
 #carousel {
-    position: relative;
-    overflow: hidden;
+    width: 80%;
     max-width: 600px;
     margin: auto;
+    overflow: hidden;
     border-radius: 10px;
 }
 
 .carousel-container {
     display: flex;
     width: 100%;
-    height: 300px;
     position: relative;
 }
 
 .carousel-slide {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    position: absolute;
+    min-width: 100%;
     transition: opacity 1s ease-in-out;
-    opacity: 0;
 }
 
-.carousel-slide.active {
-    opacity: 1;
-}
-
-.carousel-img {
+.carousel-slide img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
     border-radius: 10px;
+    display: block;
 }
+
 
 
 /* ⏳ Contador */
