@@ -89,19 +89,18 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-// 📌 Mostrar invitados en tiempo real desde Firebase
-db.ref("invitados").on("value", (snapshot) => {
-    listaInvitados.innerHTML = "";
-    let count = 0;
-    snapshot.forEach(childSnapshot => {
-        let data = childSnapshot.val();
-        let li = document.createElement("li");
-        li.textContent = `${data.nombre} ${data.apellido}`;
-        listaInvitados.appendChild(li);
-        count++;
+    // 📌 Mostrar invitados en tiempo real desde Firebase
+    db.ref("invitados").on("value", (snapshot) => {
+        listaInvitados.innerHTML = "";
+        let count = 0;
+        snapshot.forEach(childSnapshot => {
+            let data = childSnapshot.val();
+            let li = document.createElement("li");
+            li.textContent = `${data.nombre} ${data.apellido}`;
+            listaInvitados.appendChild(li);
+            count++;
+        });
+        contadorInvitados.textContent = count;
     });
-    contadorInvitados.textContent = count;
-}); // Cierre correcto de función
 
-// ❌ ❌ ❌ Elimina esta última llave extra ❌ ❌ ❌
-// });
+}); // ✅ Cierre correcto de la función principal
