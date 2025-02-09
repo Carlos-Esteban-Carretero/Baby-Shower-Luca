@@ -58,6 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+
     // 🔥 🔥 🔥 FIREBASE 🔥 🔥 🔥
     const db = firebase.database();
     const listaInvitados = document.getElementById("lista-invitados");
