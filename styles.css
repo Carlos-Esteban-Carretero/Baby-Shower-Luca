@@ -61,39 +61,34 @@ section {
     background-color: rgba(255, 255, 255, 1);
 }
 
-/* 🎠 Carrusel */
+/* 🎠 Estilos del carrusel */
 #carousel {
-    width: 100%;
+    width: 80%;
     max-width: 600px;
     margin: auto;
     overflow: hidden;
     border-radius: 10px;
     position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .carousel-container {
     display: flex;
-    width: 100%;
+    width: 300%;
     transition: transform 1s ease-in-out;
 }
 
 .carousel-slide {
-    min-width: 100%;
+    width: 100%;
     flex: 0 0 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .carousel-slide img {
     width: 100%;
     height: auto;
     border-radius: 10px;
-    object-fit: cover;
+    display: block;
 }
+
 
 
 
