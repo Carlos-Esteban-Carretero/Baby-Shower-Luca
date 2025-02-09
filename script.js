@@ -33,26 +33,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     setTimeout(lanzarConfeti, 1000);
 
-    // 🎠 **Carrusel de imágenes FINAL**
-    const slides = document.querySelectorAll(".carousel-slide img");
+    // 🎠 **Carrusel Finalizado**
+    const slides = document.querySelectorAll(".carousel-slide");
     const carouselContainer = document.querySelector(".carousel-container");
     let index = 0;
-    
+
     function cambiarImagen() {
-        // Ajustar el `transform` para que se desplace correctamente sin mostrar imágenes a los lados
+        index = (index + 1) % slides.length;
         const desplazamiento = -index * 100; 
         carouselContainer.style.transform = `translateX(${desplazamiento}%)`;
-
-        index = (index + 1) % slides.length; // Ir cambiando de imagen en bucle
     }
 
-    // Ajustar el contenedor del carrusel correctamente
-    if (slides.length > 0) {
-        carouselContainer.style.display = "flex";
-        carouselContainer.style.width = `${slides.length * 100}%`; // Ajusta el ancho total dinámicamente
-        slides.forEach(img => img.style.width = "100%"); // Hace que cada imagen ocupe el 100% del contenedor
-
-        setInterval(cambiarImagen, 2500); // Cambia cada 2.5 segundos
+    setInterval(cambiarImagen, 2500); // Cambia cada 2.5 segundos
     }
 
     // 🔥 🔥 🔥 FIREBASE 🔥 🔥 🔥
