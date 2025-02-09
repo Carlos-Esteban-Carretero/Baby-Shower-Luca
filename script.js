@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     console.log("✅ Página cargada correctamente");
 
-    // Animación del título
+    // 🔹 Animación del título
     gsap.from("#titulo", { 
         duration: 1.5, 
         opacity: 0, 
@@ -9,15 +9,19 @@ document.addEventListener("DOMContentLoaded", function () {
         ease: "bounce.out" 
     });
 
-    // Efecto de confeti al cargar
-    setTimeout(() => {
+    // 🎉 Efecto de confeti al cargar la página
+    function lanzarConfeti() {
         confetti({
-            particleCount: 150,
-            spread: 100,
+            particleCount: 120,
+            spread: 80,
             origin: { y: 0.6 }
         });
-    }, 500); // Medio segundo después de cargar la página
+    }
+
+    // Esperar 500ms después de cargar la página para mostrar confeti
+    setTimeout(lanzarConfeti, 800);
 });
+
 
 
     const db = firebase.database();
