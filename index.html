@@ -16,28 +16,21 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.0.1" defer></script>
 
-    <!-- GSAP para animaciones -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
-
-<!-- Confetti.js para efecto de confeti -->
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.0.1" defer></script>
-
-
-    <!-- Firebase (CDN oficial) -->
+    <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
 
     <!-- Configuración de Firebase -->
     <script>
         const firebaseConfig = {
-            apiKey: "AIzaSyASZ9upT2Rv0wfESt9dBvOBi-_trzmsE-U",
-            authDomain: "baby-shower-luca.firebaseapp.com",
-            databaseURL: "https://baby-shower-luca-default-rtdb.europe-west1.firebasedatabase.app",
-            projectId: "baby-shower-luca",
-            storageBucket: "baby-shower-luca.appspot.com",
-            messagingSenderId: "1007298783013",
-            appId: "1:1007298783013:web:3b095422fac1e9bff1cc",
-            measurementId: "G-CJ5P4M14FE"
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            databaseURL: "YOUR_DATABASE_URL",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_SENDER_ID",
+            appId: "YOUR_APP_ID",
+            measurementId: "YOUR_MEASUREMENT_ID"
         };
         firebase.initializeApp(firebaseConfig);
     </script>
@@ -53,29 +46,22 @@
         </div>
     </header>
 
-<section id="carousel">
-    <div class="carousel-container">
-        <div class="carousel-slide"><img src="IMG-20250203-WA0009.jpg" alt="Imagen 1"></div>
-        <div class="carousel-slide"><img src="IMG-20250203-WA0011.jpg" alt="Imagen 2"></div>
-        <div class="carousel-slide"><img src="IMG-20250203-WA0010.jpg" alt="Imagen 3"></div>
-    </div>
-</section>
+    <!-- Carrusel -->
+    <section id="carousel">
+        <div class="carousel-container">
+            <div class="carousel-slide"><img src="IMG-20250203-WA0009.jpg" alt="Imagen 1"></div>
+            <div class="carousel-slide"><img src="IMG-20250203-WA0011.jpg" alt="Imagen 2"></div>
+            <div class="carousel-slide"><img src="IMG-20250203-WA0010.jpg" alt="Imagen 3"></div>
+        </div>
+    </section>
 
-
-
-
-
-
-
-
-
-
-
+    <!-- Contador -->
     <section id="contador">
         <h2>Cuenta regresiva para el gran día:</h2>
         <div id="countdown"></div>
     </section>
 
+    <!-- Ubicación -->
     <section id="ubicacion">
         <h2>📍 Ubicación y Horario</h2>
         <p><i class="fas fa-map-marker-alt"></i> <strong>Av. del Juncal, Navalcarnero</strong></p>
@@ -83,44 +69,35 @@
         <button onclick="window.open('https://www.google.com/maps/search/?api=1&query=Av.+del+Juncal,+Navalcarnero', '_blank')" class="maps-btn">Abrir en Google Maps</button>
     </section>
 
-   <section id="video">
-    <h2>Video Especial</h2>
-    <div class="video-container">
-        <iframe 
-            src="https://www.youtube.com/embed/cIf5FeYQENo" 
-            frameborder="0" 
-            allowfullscreen>
-        </iframe>
-    </div>
-</section>
-
-
- <section id="confirmacion">
-    <h2>Confirma tu asistencia</h2>
-    <form id="rsvpForm">
-        <label for="nombre">Tu nombre <span class="required">*</span></label>
-        <input type="text" id="nombre" placeholder="Tu nombre" required>
-
-        <label for="apellido">Tu apellido <span class="required">*</span></label>
-        <input type="text" id="apellido" placeholder="Tu apellido" required>
-
-        <div class="acompanante-label">
-            <p><strong>¿Viene algún acompañante contigo?</strong> Añádelo aquí abajo ⬇️</p>
-            <div class="flecha"></div> <!-- Flecha animada -->
+    <!-- Video -->
+    <section id="video">
+        <h2>Video Especial</h2>
+        <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/cIf5FeYQENo" frameborder="0" allowfullscreen></iframe>
         </div>
+    </section>
 
-        <div id="acompanantes-container"></div>
+    <!-- Confirmación -->
+    <section id="confirmacion">
+        <h2>Confirma tu asistencia</h2>
+        <form id="rsvpForm">
+            <label for="nombre">Tu nombre <span class="required">*</span></label>
+            <input type="text" id="nombre" placeholder="Tu nombre" required>
 
-        <button type="button" id="agregar-acompanante" class="btn-animado">
-            <i class="fas fa-user-plus"></i> Añadir acompañante
-        </button>
+            <label for="apellido">Tu apellido <span class="required">*</span></label>
+            <input type="text" id="apellido" placeholder="Tu apellido" required>
 
-        <button type="submit" class="btn-confirmar">Confirmar</button>
-    </form>
-</section>
+            <div id="acompanantes-container"></div>
 
+            <button type="button" id="agregar-acompanante" class="btn-animado">
+                <i class="fas fa-user-plus"></i> Añadir acompañante
+            </button>
 
+            <button type="submit" class="btn-confirmar">Confirmar</button>
+        </form>
+    </section>
 
+    <!-- Lista de invitados -->
     <section id="invitados">
         <h2>🎉 Invitados confirmados (<span id="contador-invitados">0</span>)</h2>
         <ul id="lista-invitados"></ul>
