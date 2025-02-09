@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     console.log("✅ Página cargada correctamente");
 
-    // 🔹 Restaurando animación del título con GSAP
+    // 🔹 Animación del título con GSAP
     gsap.from("#titulo", { 
         duration: 1.5, 
         opacity: 0, 
@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // 🎉 Confeti cayendo desde arriba por toda la pantalla
     function lanzarConfeti() {
-        let duracion = 3000; // 3 segundos de duración
+        let duracion = 3000; 
         let end = Date.now() + duracion;
 
         (function frame() {
@@ -33,26 +33,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
     setTimeout(lanzarConfeti, 1000);
 
-    // 🎠 **Corrección del Carrusel**
+    // 🎠 Carrusel de imágenes funcional
     const slides = document.querySelectorAll(".carousel-slide");
-    const totalSlides = slides.length;
+    const carouselContainer = document.querySelector(".carousel-container");
     let index = 0;
 
     function cambiarImagen() {
-        slides.forEach((slide, i) => {
-            slide.style.display = i === index ? "block" : "none";
-        });
-
-        index = (index + 1) % totalSlides;
+        index = (index + 1) % slides.length;
+        const desplazamiento = -index * 100; 
+        carouselContainer.style.transform = `translateX(${desplazamiento}%)`;
     }
 
-    if (totalSlides > 0) {
-        slides.forEach(slide => slide.style.display = "none");
-        slides[0].style.display = "block"; // Mostrar la primera imagen al inicio
-        setInterval(cambiarImagen, 2500);
-    }
+    setInterval(cambiarImagen, 2500); // Cambia cada 2.5 segundos
 
-    // 🔥 🔥 🔥 FIREBASE RESTAURADO 🔥 🔥 🔥
+    // 🔥 🔥 🔥 FIREBASE 🔥 🔥 🔥
     const db = firebase.database();
     const listaInvitados = document.getElementById("lista-invitados");
     const contadorInvitados = document.getElementById("contador-invitados");
