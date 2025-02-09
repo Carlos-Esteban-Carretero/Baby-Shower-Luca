@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
         ease: "bounce.out" 
     });
 
-    // 🎉 Confeti solo desde el lado izquierdo con 5 segundos de duración
+    // 🎉 Confeti saliendo del centro con duración de 5 segundos
     function lanzarConfeti() {
         let duracion = 5000; // 5 segundos de duración
         let end = Date.now() + duracion;
@@ -17,11 +17,11 @@ document.addEventListener("DOMContentLoaded", function () {
         (function frame() {
             confetti({
                 particleCount: 10,
-                spread: 100, // Menos dispersión
-                startVelocity: 40,
-                ticks: 100, // Duración extendida de cada partícula
+                spread: 120, // Dispersión moderada
+                startVelocity: 45,
+                ticks: 120, // Más duración de cada partícula
                 gravity: 0.6, // Caída más suave
-                origin: { x: 0, y: Math.random() * 0.8 } // Confeti solo desde el lado izquierdo
+                origin: { x: 0.5, y: 0.5 } // Confeti desde el centro de la pantalla
             });
 
             if (Date.now() < end) {
