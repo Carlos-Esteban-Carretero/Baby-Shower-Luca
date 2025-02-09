@@ -9,19 +9,20 @@ document.addEventListener("DOMContentLoaded", function () {
         ease: "bounce.out" 
     });
 
-    // 🎉 Confeti saliendo del centro con duración de 5 segundos
+    // 🎉 Confeti cayendo lentamente desde arriba durante 5 segundos
     function lanzarConfeti() {
         let duracion = 5000; // 5 segundos de duración
         let end = Date.now() + duracion;
 
         (function frame() {
             confetti({
-                particleCount: 10,
-                spread: 120, // Dispersión moderada
-                startVelocity: 45,
-                ticks: 120, // Más duración de cada partícula
-                gravity: 0.6, // Caída más suave
-                origin: { x: 0.5, y: 0.5 } // Confeti desde el centro de la pantalla
+                particleCount: 3, // Menos partículas por ráfaga para un efecto más ligero
+                spread: 60, // Menos dispersión
+                startVelocity: 10, // Caída más lenta
+                ticks: 200, // Aumenta la duración de cada partícula
+                gravity: 0.2, // Simula una caída más suave
+                scalar: 0.9, // Tamaño de los confetis más pequeño
+                origin: { x: Math.random(), y: -0.1 } // Aparece desde arriba de la pantalla
             });
 
             if (Date.now() < end) {
@@ -30,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
         })();
     }
 
-    // Disparar confeti después de 1 segundo
+    // Disparar confeti después de 1 segundo y hacerlo durar más
     setTimeout(lanzarConfeti, 1000);
 
     // 🔥 🔥 🔥 RESTAURANDO FIREBASE 🔥 🔥 🔥
