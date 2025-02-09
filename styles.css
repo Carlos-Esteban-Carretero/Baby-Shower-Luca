@@ -2,7 +2,7 @@
 body {
     font-family: 'Poppins', sans-serif;
     text-align: center;
-    background-color: #e0f7fa;
+    background-color: #e0f7fa; /* Azul pastel baby shower */
     color: #333;
     margin: 0;
     padding: 0;
@@ -69,6 +69,105 @@ header {
     margin: auto;
 }
 
+/* 📝 Campos de texto */
+#rsvpForm input {
+    width: 100%;
+    max-width: 400px;
+    padding: 12px;
+    border-radius: 8px;
+    border: 2px solid #4fc3f7;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* 👀 Placeholder con texto más claro */
+#rsvpForm input::placeholder {
+    color: #aaa;
+    font-weight: normal;
+}
+
+/* 🔴 Asterisco rojo en campos obligatorios */
+.required {
+    color: red;
+    font-weight: bold;
+}
+
+/* 📌 Pregunta de acompañantes con animación */
+.acompanante-label {
+    font-size: 18px;
+    font-weight: bold;
+    color: #0288d1;
+    text-align: center;
+    position: relative;
+    margin-bottom: 10px;
+    animation: parpadeo 1.5s infinite alternate;
+}
+
+/* 🔽 Flecha animada apuntando al botón de añadir acompañante */
+.flecha {
+    width: 0;
+    height: 0;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-top: 18px solid #0288d1;
+    margin: 5px auto;
+    animation: moverFlecha 1s infinite alternate;
+}
+
+@keyframes moverFlecha {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(7px); }
+}
+
+/* ➕ Botón de añadir acompañante mejorado */
+#agregar-acompanante {
+    background-color: #ffb74d;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border: none;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 80%;
+    max-width: 250px;
+}
+
+#agregar-acompanante i {
+    font-size: 18px;
+}
+
+#agregar-acompanante:hover {
+    background-color: #ff9800;
+    transform: scale(1.05);
+}
+
+/* 🔵 Botón de confirmar */
+.btn-confirmar {
+    background-color: #4fc3f7;
+    color: white;
+    font-weight: bold;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    max-width: 200px;
+}
+
+.btn-confirmar:hover {
+    background-color: #0288d1;
+    transform: scale(1.05);
+}
+
 /* 📌 Botón Google Maps */
 button {
     background-color: #ffb74d;
@@ -87,12 +186,25 @@ button:hover {
     transform: scale(1.05);
 }
 
-/* 📱 Responsividad */
+/* 📱 Responsividad mejorada */
 @media screen and (max-width: 768px) {
     section {
         width: 90%;
     }
+
+    input {
+        width: 100%;
+    }
+
     #carousel {
         max-width: 100%;
+    }
+
+    #rsvpForm {
+        width: 100%;
+    }
+
+    #agregar-acompanante {
+        width: 80%;
     }
 }
