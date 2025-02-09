@@ -1,249 +1,81 @@
-/* 🎨 Estilos Generales */
-body {
-    font-family: 'Poppins', sans-serif;
-    text-align: center;
-    background-color: #e0f7fa; /* Azul pastel baby shower */
-    color: #333;
-    margin: 0;
-    padding: 0;
-}
+document.addEventListener("DOMContentLoaded", function () {
+    console.log("✅ Página cargada correctamente");
 
-/* 🌟 Encabezado */
-header {
-    background-color: #4fc3f7;
-    padding: 40px;
-    color: white;
-    font-size: 28px;
-    font-weight: bold;
-    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-    animation: fadeInDown 1s ease-in-out;
-}
+    // 🔹 Animación del título con GSAP
+    gsap.from("#titulo", { 
+        duration: 1.5, 
+        opacity: 0, 
+        y: -50, 
+        ease: "bounce.out" 
+    });
 
-/* 🎉 Animación del título */
-#titulo {
-    font-size: 40px;
-    font-weight: bold;
-    color: #fff;
-    text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
-    text-align: center;
-    margin-top: 20px;
-    animation: fadeIn 1.5s ease-in-out;
-}
+    // 🎠 Carrusel funcional
+    const slides = document.querySelectorAll(".carousel-slide");
+    const carouselContainer = document.querySelector(".carousel-container");
+    let index = 0;
 
-
-/* 📍 Secciones */
-section {
-    margin: 30px auto;
-    padding: 20px;
-    background-color: white;
-    border-radius: 15px;
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
-    width: 80%;
-    max-width: 900px;
-    animation: fadeInUp 1s ease-in-out;
-}
-
-/* 🎵 Botón de silenciar música */
-#muteMusic {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background-color: rgba(255, 255, 255, 0.8);
-    border: none;
-    padding: 10px;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
-}
-
-#muteMusic:hover {
-    background-color: rgba(255, 255, 255, 1);
-}
-
-/* 🎠 Estilos del carrusel */
-#carousel {
-    width: 80%;
-    max-width: 600px;
-    margin: auto;
-    overflow: hidden;
-    border-radius: 10px;
-    position: relative;
-}
-
-.carousel-container {
-    display: flex;
-    width: 300%;
-    transition: transform 1s ease-in-out;
-}
-
-.carousel-slide {
-    width: 100%;
-    flex: 0 0 100%;
-}
-
-.carousel-slide img {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-    display: block;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-/* ⏳ Contador */
-#countdown {
-    font-size: 24px;
-    font-weight: bold;
-    color: #0288d1;
-    background-color: #fff;
-    padding: 15px;
-    border-radius: 10px;
-    display: inline-block;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-}
-
-/* ✅ Formulario de confirmación */
-#rsvpForm {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
-    max-width: 500px;
-    margin: auto;
-}
-
-/* 📝 Campos de texto */
-#rsvpForm input {
-    width: 100%;
-    max-width: 400px;
-    padding: 12px;
-    border-radius: 8px;
-    border: 2px solid #4fc3f7;
-    font-size: 16px;
-    font-weight: bold;
-}
-
-/* 👀 Placeholder con texto más claro */
-#rsvpForm input::placeholder {
-    color: #aaa;
-    font-weight: normal;
-}
-
-/* 🔴 Asterisco rojo en campos obligatorios */
-.required {
-    color: red;
-    font-weight: bold;
-}
-
-/* 📌 Pregunta de acompañantes con animación */
-.acompanante-label {
-    font-size: 18px;
-    font-weight: bold;
-    color: #0288d1;
-    text-align: center;
-    position: relative;
-    margin-bottom: 10px;
-    animation: parpadeo 1.5s infinite alternate;
-}
-
-/* 🔽 Flecha animada apuntando al botón de añadir acompañante */
-.flecha {
-    width: 0;
-    height: 0;
-    border-left: 12px solid transparent;
-    border-right: 12px solid transparent;
-    border-top: 18px solid #0288d1;
-    margin: 5px auto;
-    animation: moverFlecha 1s infinite alternate;
-}
-
-@keyframes moverFlecha {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(7px); }
-}
-
-/* ➕ Botón de añadir acompañante mejorado */
-#agregar-acompanante {
-    background-color: #ffb74d;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    padding: 12px;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    border: none;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    width: 80%;
-    max-width: 250px;
-}
-
-#agregar-acompanante i {
-    font-size: 18px;
-}
-
-#agregar-acompanante:hover {
-    background-color: #ff9800;
-    transform: scale(1.05);
-}
-
-/* 🔵 Botón de confirmar */
-.btn-confirmar {
-    background-color: #4fc3f7;
-    color: white;
-    font-weight: bold;
-    border: none;
-    padding: 12px 18px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    width: 100%;
-    max-width: 200px;
-}
-
-.btn-confirmar:hover {
-    background-color: #0288d1;
-    transform: scale(1.05);
-}
-
-/* 📱 Responsividad mejorada */
-@media screen and (max-width: 768px) {
-    section {
-        width: 90%;
+    function cambiarImagen() {
+        index = (index + 1) % slides.length;
+        const desplazamiento = -index * 100; 
+        carouselContainer.style.transform = `translateX(${desplazamiento}%)`;
     }
 
-    input {
-        width: 100%;
-    }
+    setInterval(cambiarImagen, 3000);
 
-    #carousel {
-        max-width: 100%;
-    }
+    // 🔥 🔥 🔥 FIREBASE 🔥 🔥 🔥
+    const db = firebase.database();
+    const listaInvitados = document.getElementById("lista-invitados");
+    const contadorInvitados = document.getElementById("contador-invitados");
+    const rsvpForm = document.getElementById("rsvpForm");
+    const acompanantesContainer = document.getElementById("acompanantes-container");
+    const btnAgregarAcompanante = document.getElementById("agregar-acompanante");
 
-    #rsvpForm {
-        width: 100%;
-    }
+    // ➕ Agregar acompañantes
+    btnAgregarAcompanante.addEventListener("click", function () {
+        let nuevoInput = document.createElement("input");
+        nuevoInput.type = "text";
+        nuevoInput.className = "acompanante";
+        nuevoInput.placeholder = "Nombre del acompañante";
+        acompanantesContainer.appendChild(nuevoInput);
+    });
 
-    #agregar-acompanante {
-        width: 80%;
-    }
-}
+    // 📌 Guardar en Firebase
+    rsvpForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        
+        let nombre = document.getElementById("nombre").value.trim();
+        let apellido = document.getElementById("apellido").value.trim();
+        let acompanantes = [...document.querySelectorAll(".acompanante")].map(input => input.value.trim()).filter(val => val !== "");
+
+        if (nombre && apellido) {
+            let nuevoInvitado = db.ref("invitados").push();
+            nuevoInvitado.set({
+                nombre: nombre,
+                apellido: apellido,
+                acompanantes: acompanantes
+            }).then(() => {
+                console.log("🎉 Invitado registrado con éxito en Firebase");
+                rsvpForm.reset();
+                acompanantesContainer.innerHTML = "";
+            }).catch(error => {
+                console.error("❌ Error al guardar en Firebase:", error);
+            });
+        } else {
+            alert("Por favor, completa tu nombre y apellido.");
+        }
+    });
+
+    // 📌 Mostrar invitados en tiempo real desde Firebase
+    db.ref("invitados").on("value", (snapshot) => {
+        listaInvitados.innerHTML = "";
+        let count = 0;
+        snapshot.forEach(childSnapshot => {
+            let data = childSnapshot.val();
+            let li = document.createElement("li");
+            li.textContent = `${data.nombre} ${data.apellido}`;
+            listaInvitados.appendChild(li);
+            count++;
+        });
+        contadorInvitados.textContent = count;
+    });
+});
