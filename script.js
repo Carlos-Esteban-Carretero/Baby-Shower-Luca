@@ -78,4 +78,4 @@ document.addEventListener("DOMContentLoaded", function () {
         });
         contadorInvitados.textContent = count;
     });
-});
+}); // 🔥 Esta es la única llave de cierre necesaria
