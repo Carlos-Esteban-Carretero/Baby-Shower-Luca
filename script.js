@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     console.log("✅ Página cargada correctamente");
 
-    // 🔹 Animación del título con GSAP
+    // 🔹 Restaurando animación del título con GSAP
     gsap.from("#titulo", { 
         duration: 1.5, 
         opacity: 0, 
@@ -33,31 +33,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
     setTimeout(lanzarConfeti, 1000);
 
-// 🎠 **Carrusel de imágenes funcional con tamaño uniforme**
-document.addEventListener("DOMContentLoaded", function () {
-    console.log("✅ Página cargada correctamente");
-
+    // 🎠 **Carrusel de imágenes corregido**
     let index = 0;
-    const slides = document.querySelectorAll(".carousel-slide");
+    const slides = document.querySelectorAll(".carousel-slide img");
     const totalSlides = slides.length;
 
     function cambiarImagen() {
-        slides.forEach((slide, i) => {
-            slide.style.display = (i === index) ? "block" : "none";
+        slides.forEach((img, i) => {
+            img.style.opacity = (i === index) ? "1" : "0"; // Solo una imagen visible
         });
 
         index = (index + 1) % totalSlides;
     }
 
-    // Inicializa el carrusel
+    // Inicializar el carrusel correctamente
     if (totalSlides > 0) {
-        slides.forEach(slide => slide.style.display = "none");
-        slides[0].style.display = "block";
-        setInterval(cambiarImagen, 2500);
+        slides.forEach(img => img.style.opacity = "0");
+        slides[0].style.opacity = "1";
+        setInterval(cambiarImagen, 2500); // Cambia cada 2.5 segundos
     }
-});
-
-
 
     // 🔥 🔥 🔥 FIREBASE 🔥 🔥 🔥
     const db = firebase.database();
