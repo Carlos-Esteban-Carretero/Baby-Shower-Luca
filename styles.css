@@ -24,6 +24,21 @@ body {
     border-top: 5px solid #4fc3f7;
 }
 
+/* 📌 Etiquetas con negrita y asterisco rojo */
+#rsvpForm label {
+    font-weight: bold;
+    font-size: 18px;
+    color: #333;
+    text-align: left;
+    width: 100%;
+    max-width: 400px;
+}
+
+.required::after {
+    content: " *";
+    color: red;
+}
+
 /* 📌 Campos de entrada */
 #rsvpForm input {
     width: 100%;
@@ -35,6 +50,26 @@ body {
     background: #e3f2fd;
     font-weight: bold;
     transition: all 0.3s ease-in-out;
+    text-align: center;
+}
+
+/* Placeholder personalizados */
+#nombre::placeholder {
+    font-weight: normal;
+    color: #757575;
+    font-size: 16px;
+    text-align: center;
+    font-style: italic;
+    content: "Escribe tu nombre...";
+}
+
+#apellido::placeholder {
+    font-weight: normal;
+    color: #757575;
+    font-size: 16px;
+    text-align: center;
+    font-style: italic;
+    content: "Escribe tu apellido...";
 }
 
 /* ✨ Efecto al enfocar los campos */
@@ -42,12 +77,6 @@ body {
     border: 2px solid #0288d1;
     background: #b3e5fc;
     transform: scale(1.03);
-}
-
-/* 🚨 Asterisco rojo en los campos obligatorios */
-.required {
-    color: red;
-    font-weight: bold;
 }
 
 /* 🎯 Pregunta de acompañantes con animación y flecha */
@@ -84,7 +113,7 @@ body {
     100% { transform: translateY(10px); }
 }
 
-/* 🟡 Botón de añadir acompañante (Mejorado) */
+/* 🟡 Botón de añadir acompañante (Mejorado y centrado) */
 #agregar-acompanante {
     background: linear-gradient(to right, #ffb74d, #ff9800);
     color: white;
@@ -101,6 +130,8 @@ body {
     border: none;
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
     text-align: center;
+    width: 80%;
+    max-width: 250px;
 }
 
 #agregar-acompanante i {
