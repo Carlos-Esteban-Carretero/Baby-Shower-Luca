@@ -11,12 +11,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // 🎉 Confeti cayendo desde arriba por toda la pantalla
     function lanzarConfeti() {
-        let duracion = 5000; // 5 segundos de duración
+        let duracion = 3000; // 3 segundos de duración
         let end = Date.now() + duracion;
 
         (function frame() {
             confetti({
-                particleCount: 5, 
+                particleCount: 3, 
                 spread: 120,
                 startVelocity: 8,
                 ticks: 300,
