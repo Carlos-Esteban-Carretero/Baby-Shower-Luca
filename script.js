@@ -33,14 +33,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     setTimeout(lanzarConfeti, 1000);
 
-    // 🎠 **Carrusel Finalizado**
+   // 🎠 **Carrusel corregido**
     const slides = document.querySelectorAll(".carousel-slide");
     const carouselContainer = document.querySelector(".carousel-container");
     let index = 0;
 
     function cambiarImagen() {
         index = (index + 1) % slides.length;
-        const desplazamiento = -index * 100; 
+        const desplazamiento = -index * 100;
         carouselContainer.style.transform = `translateX(${desplazamiento}%)`;
     }
 
