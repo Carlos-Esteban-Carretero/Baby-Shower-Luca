@@ -1,6 +1,25 @@
 document.addEventListener("DOMContentLoaded", function () {
     console.log("✅ Página cargada correctamente");
 
+    // Animación del título
+    gsap.from("#titulo", { 
+        duration: 1.5, 
+        opacity: 0, 
+        y: -50, 
+        ease: "bounce.out" 
+    });
+
+    // Efecto de confeti al cargar
+    setTimeout(() => {
+        confetti({
+            particleCount: 150,
+            spread: 100,
+            origin: { y: 0.6 }
+        });
+    }, 500); // Medio segundo después de cargar la página
+});
+
+
     const db = firebase.database();
     const listaInvitados = document.getElementById("lista-invitados");
     const contadorInvitados = document.getElementById("contador-invitados");
