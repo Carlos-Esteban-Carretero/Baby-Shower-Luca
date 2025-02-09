@@ -9,17 +9,18 @@ document.addEventListener("DOMContentLoaded", function () {
         ease: "bounce.out" 
     });
 
-    // 🎉 Confeti extendido por toda la pantalla y con más duración
+    // 🎉 Confeti extendido por toda la pantalla con más duración y visibilidad
     function lanzarConfeti() {
-        let duracion = 7000; // 7 segundos de duración
+        let duracion = 10000; // 10 segundos de duración
         let end = Date.now() + duracion;
 
         (function frame() {
             confetti({
-                particleCount: 10,
+                particleCount: 15,
                 spread: 360, // Cobertura total
-                startVelocity: 40,
-                ticks: 100, // Más duración en cada ráfaga
+                startVelocity: 50,
+                ticks: 200, // Duración extendida de cada partícula
+                gravity: 0.6, // Caída más lenta para mejor visibilidad
                 origin: { x: Math.random(), y: Math.random() } // Generación aleatoria en toda la pantalla
             });
 
@@ -29,11 +30,8 @@ document.addEventListener("DOMContentLoaded", function () {
         })();
     }
 
-    // Disparar confeti después de 1 segundo y hacerlo durar más
+    // Disparar confeti después de 1 segundo
     setTimeout(lanzarConfeti, 1000);
-});
-
-
 
     // 🔥 🔥 🔥 RESTAURANDO FIREBASE 🔥 🔥 🔥
     const db = firebase.database();
