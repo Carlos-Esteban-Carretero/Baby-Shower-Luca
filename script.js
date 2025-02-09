@@ -9,18 +9,29 @@ document.addEventListener("DOMContentLoaded", function () {
         ease: "bounce.out" 
     });
 
-    // 🎉 Efecto de confeti al cargar la página
+    // 🎉 Efecto de confeti extendido por toda la pantalla y más duradero
     function lanzarConfeti() {
-        confetti({
-            particleCount: 120,
-            spread: 100,
-            startVelocity: 30,
-            origin: { y: 0.6 },
-        });
+        let duracion = 5 * 1000; // 5 segundos de duración
+        let end = Date.now() + duracion;
+
+        (function frame() {
+            confetti({
+                particleCount: 5,
+                spread: 200,
+                startVelocity: 30,
+                origin: { x: Math.random(), y: Math.random() * 0.6 }
+            });
+
+            if (Date.now() < end) {
+                requestAnimationFrame(frame);
+            }
+        })();
     }
 
-    // Disparar confeti después de 1 segundo
+    // Disparar confeti después de 1 segundo y que dure más
     setTimeout(lanzarConfeti, 1000);
+});
+
 
     // 🔥 🔥 🔥 RESTAURANDO FIREBASE 🔥 🔥 🔥
     const db = firebase.database();
