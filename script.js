@@ -1,20 +1,17 @@
 document.addEventListener("DOMContentLoaded", function () {
     console.log("✅ Página cargada correctamente");
 
-    // 🔄 Carrusel de imágenes
+    // 🔄 Carrusel de imágenes (Corrección para que funcione correctamente)
     let index = 0;
-    const slides = document.querySelectorAll(".carousel-slide");
-    slides[index].classList.add("active");
-
+    const slides = document.querySelectorAll(".carousel-slide img"); // Selecciona las imágenes dentro del contenedor
     function cambiarImagen() {
-        slides[index].classList.remove("active");
+        slides.forEach((img, i) => {
+            img.style.display = i === index ? "block" : "none"; // Solo muestra una imagen a la vez
+        });
         index = (index + 1) % slides.length;
-        slides[index].classList.add("active");
     }
-
     setInterval(cambiarImagen, 2500); // Cambia la imagen cada 2.5 segundos
-});
-
+    cambiarImagen(); // Inicia mostrando la primera imagen
 
     // 🔹 Animación del título con GSAP
     gsap.from("#titulo", { 
@@ -31,13 +28,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
         (function frame() {
             confetti({
-                particleCount: 3, // Menos partículas por ráfaga para un efecto más ligero
-                spread: 60, // Menos dispersión
-                startVelocity: 10, // Caída más lenta
+                particleCount: 2, // Menos partículas por ráfaga para un efecto más ligero
+                spread: 50, // Menos dispersión
+                startVelocity: 5, // Caída más lenta
                 ticks: 200, // Aumenta la duración de cada partícula
-                gravity: 0.2, // Simula una caída más suave
-                scalar: 0.9, // Tamaño de los confetis más pequeño
-                origin: { x: Math.random(), y: -0.1 } // Aparece desde arriba de la pantalla
+                gravity: 0.1, // Simula una caída más suave
+                scalar: 0.8, // Tamaño de los confetis más pequeño
+                origin: { x: 0.5, y: -0.1 } // Aparece desde el centro arriba de la pantalla
             });
 
             if (Date.now() < end) {
@@ -46,10 +43,10 @@ document.addEventListener("DOMContentLoaded", function () {
         })();
     }
 
-    // Disparar confeti después de 1 segundo y hacerlo durar más
+    // Disparar confeti después de 1 segundo
     setTimeout(lanzarConfeti, 1000);
 
-    // 🔥 🔥 🔥 RESTAURANDO FIREBASE 🔥 🔥 🔥
+    // 🔥 Restaurando Firebase 🔥
     const db = firebase.database();
     const listaInvitados = document.getElementById("lista-invitados");
     const contadorInvitados = document.getElementById("contador-invitados");
