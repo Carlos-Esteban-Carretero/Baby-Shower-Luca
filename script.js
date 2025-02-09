@@ -34,9 +34,13 @@ document.addEventListener("DOMContentLoaded", function () {
         measurementId: "G-CJ5P4M14FE"
     };
 
-    // **Inicializa Firebase** (Esto faltaba en el código)
-    firebase.initializeApp(firebaseConfig);
-    
+    // **✅ Verificar si Firebase ya está inicializado antes de inicializarlo**
+    if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+    } else {
+        firebase.app(); // Si ya está inicializado, usar la app existente
+    }
+
     const db = firebase.database();
     const listaInvitados = document.getElementById("lista-invitados");
     const contadorInvitados = document.getElementById("contador-invitados");
