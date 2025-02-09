@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
         ease: "bounce.out" 
     });
 
-    // 🎉 Confeti cayendo suavemente desde arriba en el centro
+    // 🎉 Confeti cayendo desde arriba por toda la pantalla
     function lanzarConfeti() {
         let duracion = 5000; // 5 segundos de duración
         let end = Date.now() + duracion;
@@ -17,12 +17,12 @@ document.addEventListener("DOMContentLoaded", function () {
         (function frame() {
             confetti({
                 particleCount: 5, 
-                spread: 40, 
-                startVelocity: 5, // Velocidad más baja para caída lenta
-                ticks: 200, 
-                gravity: 0.1, 
-                scalar: 1, 
-                origin: { x: 0.5, y: -0.1 } // Sale desde el centro y arriba
+                spread: 120, // Más dispersión para cubrir toda la pantalla
+                startVelocity: 8, // Velocidad de caída más baja
+                ticks: 300, // Mayor duración de cada partícula
+                gravity: 0.3, // Efecto de caída más realista
+                scalar: 0.8, // Tamaño más pequeño
+                origin: { x: Math.random(), y: -0.1 } // Aparece en diferentes posiciones en la parte superior
             });
 
             if (Date.now() < end) {
@@ -34,20 +34,20 @@ document.addEventListener("DOMContentLoaded", function () {
     // Disparar confeti después de 1 segundo
     setTimeout(lanzarConfeti, 1000);
 
-    // 🔄 Carrusel de imágenes funcional
+    // 🔄 Carrusel de imágenes corregido
     let index = 0;
-    const slides = document.querySelectorAll(".carousel-slide img"); // Asegurarse de seleccionar las imágenes
-    const totalSlides = slides.length;
+    const slides = document.querySelectorAll(".carousel-slide img");
 
     function cambiarImagen() {
         slides.forEach((img, i) => {
-            img.style.display = i === index ? "block" : "none"; // Mostrar solo la imagen activa
+            img.style.display = "none"; // Oculta todas las imágenes
         });
-        index = (index + 1) % totalSlides;
+        slides[index].style.display = "block"; // Muestra solo la imagen actual
+        index = (index + 1) % slides.length; // Pasa a la siguiente imagen
     }
 
     if (slides.length > 0) {
-        cambiarImagen(); // Iniciar con la primera imagen visible
+        cambiarImagen(); // Inicia con la primera imagen visible
         setInterval(cambiarImagen, 2500); // Cambia cada 2.5 segundos
     }
 
