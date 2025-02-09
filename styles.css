@@ -74,7 +74,7 @@ section {
 
 .carousel-container {
     display: flex;
-    width: 300%; /* 3 imágenes, cada una con el 100% del viewport */
+    width: 300%; /* 3 imágenes en fila */
     transition: transform 1s ease-in-out;
 }
 
@@ -88,8 +88,8 @@ section {
 
 .carousel-slide img {
     width: 100%;
-    height: auto;
-    object-fit: cover;
+    height: 100%;
+    object-fit: cover; /* Ajusta sin distorsionar */
     border-radius: 15px;
 }
 
