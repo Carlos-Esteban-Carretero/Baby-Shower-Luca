@@ -9,31 +9,6 @@ document.addEventListener("DOMContentLoaded", function () {
         ease: "bounce.out" 
     });
 
-    // 🎉 Confeti cayendo lentamente desde arriba durante 5 segundos
-    function lanzarConfeti() {
-        let duracion = 5000; // 5 segundos de duración
-        let end = Date.now() + duracion;
-
-        (function frame() {
-            confetti({
-                particleCount: 3, // Menos partículas por ráfaga para un efecto más ligero
-                spread: 60, // Menos dispersión
-                startVelocity: 10, // Caída más lenta
-                ticks: 200, // Aumenta la duración de cada partícula
-                gravity: 0.2, // Simula una caída más suave
-                scalar: 0.9, // Tamaño de los confetis más pequeño
-                origin: { x: Math.random(), y: -0.1 } // Aparece desde arriba de la pantalla
-            });
-
-            if (Date.now() < end) {
-                requestAnimationFrame(frame);
-            }
-        })();
-    }
-
-    // Disparar confeti después de 1 segundo
-    setTimeout(lanzarConfeti, 1000);
-
     // 🎠 Carrusel funcional
     const slides = document.querySelectorAll(".carousel-slide");
     const carouselContainer = document.querySelector(".carousel-container");
@@ -48,61 +23,75 @@ document.addEventListener("DOMContentLoaded", function () {
     setInterval(cambiarImagen, 3000);
 
     // 🔥 🔥 🔥 FIREBASE 🔥 🔥 🔥
-    const db = firebase.database();
-    const listaInvitados = document.getElementById("lista-invitados");
-    const contadorInvitados = document.getElementById("contador-invitados");
-    const rsvpForm = document.getElementById("rsvpForm");
-    const acompanantesContainer = document.getElementById("acompanantes-container");
-    const btnAgregarAcompanante = document.getElementById("agregar-acompanante");
+    if (typeof firebase !== "undefined") {
+        const db = firebase.database();
+        const listaInvitados = document.getElementById("lista-invitados");
+        const contadorInvitados = document.getElementById("contador-invitados");
+        const rsvpForm = document.getElementById("rsvpForm");
+        const acompanantesContainer = document.getElementById("acompanantes-container");
+        const btnAgregarAcompanante = document.getElementById("agregar-acompanante");
 
-    // ➕ Agregar acompañantes
-    btnAgregarAcompanante.addEventListener("click", function () {
-        let nuevoInput = document.createElement("input");
-        nuevoInput.type = "text";
-        nuevoInput.className = "acompanante";
-        nuevoInput.placeholder = "Nombre del acompañante";
-        acompanantesContainer.appendChild(nuevoInput);
-    });
-
-    // 📌 Guardar en Firebase
-    rsvpForm.addEventListener("submit", function (e) {
-        e.preventDefault();
-        
-        let nombre = document.getElementById("nombre").value.trim();
-        let apellido = document.getElementById("apellido").value.trim();
-        let acompanantes = [...document.querySelectorAll(".acompanante")]
-            .map(input => input.value.trim())
-            .filter(val => val !== "");
-
-        if (nombre && apellido) {
-            let nuevoInvitado = db.ref("invitados").push();
-            nuevoInvitado.set({
-                nombre: nombre,
-                apellido: apellido,
-                acompanantes: acompanantes
-            }).then(() => {
-                console.log("🎉 Invitado registrado con éxito en Firebase");
-                rsvpForm.reset();
-                acompanantesContainer.innerHTML = "";
-            }).catch(error => {
-                console.error("❌ Error al guardar en Firebase:", error);
+        if (btnAgregarAcompanante) {
+            // ➕ Agregar acompañantes
+            btnAgregarAcompanante.addEventListener("click", function () {
+                let nuevoInput = document.createElement("input");
+                nuevoInput.type = "text";
+                nuevoInput.className = "acompanante";
+                nuevoInput.placeholder = "Nombre del acompañante";
+                acompanantesContainer.appendChild(nuevoInput);
             });
         } else {
-            alert("Por favor, completa tu nombre y apellido.");
+            console.error("❌ Error: No se encontró el botón 'agregar-acompanante'");
         }
-    });
 
-    // 📌 Mostrar invitados en tiempo real desde Firebase
-    db.ref("invitados").on("value", (snapshot) => {
-        listaInvitados.innerHTML = "";
-        let count = 0;
-        snapshot.forEach(childSnapshot => {
-            let data = childSnapshot.val();
-            let li = document.createElement("li");
-            li.textContent = `${data.nombre} ${data.apellido}`;
-            listaInvitados.appendChild(li);
-            count++;
-        });
-        contadorInvitados.textContent = count;
-    });
+        if (rsvpForm) {
+            // 📌 Guardar en Firebase
+            rsvpForm.addEventListener("submit", function (e) {
+                e.preventDefault();
+                
+                let nombre = document.getElementById("nombre").value.trim();
+                let apellido = document.getElementById("apellido").value.trim();
+                let acompanantes = [...document.querySelectorAll(".acompanante")].map(input => input.value.trim()).filter(val => val !== "");
+
+                if (nombre && apellido) {
+                    let nuevoInvitado = db.ref("invitados").push();
+                    nuevoInvitado.set({
+                        nombre: nombre,
+                        apellido: apellido,
+                        acompanantes: acompanantes
+                    }).then(() => {
+                        console.log("🎉 Invitado registrado con éxito en Firebase");
+                        rsvpForm.reset();
+                        acompanantesContainer.innerHTML = "";
+                    }).catch(error => {
+                        console.error("❌ Error al guardar en Firebase:", error);
+                    });
+                } else {
+                    alert("Por favor, completa tu nombre y apellido.");
+                }
+            });
+        } else {
+            console.error("❌ Error: No se encontró el formulario 'rsvpForm'");
+        }
+
+        if (db) {
+            // 📌 Mostrar invitados en tiempo real desde Firebase
+            db.ref("invitados").on("value", (snapshot) => {
+                listaInvitados.innerHTML = "";
+                let count = 0;
+                snapshot.forEach(childSnapshot => {
+                    let data = childSnapshot.val();
+                    let li = document.createElement("li");
+                    li.textContent = `${data.nombre} ${data.apellido}`;
+                    listaInvitados.appendChild(li);
+                    count++;
+                });
+                contadorInvitados.textContent = count;
+            });
+        } else {
+            console.error("❌ Error: Firebase no está inicializado correctamente.");
+        }
+    } else {
+        console.error("❌ Error: Firebase no está definido. Asegúrate de que la configuración es correcta.");
+    }
 });
