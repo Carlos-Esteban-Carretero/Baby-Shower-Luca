@@ -13,11 +13,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.0.1"></script>
 
-    <!-- Scripts de Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js"></script>
+    <!-- Firebase (CDN oficial) -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
 
-    <!-- Inicialización de Firebase -->
+    <!-- Configuración de Firebase -->
     <script>
         const firebaseConfig = {
             apiKey: "AIzaSyASZ9upT2Rv0wfESt9dBvOBi-_trzmsE-U",
@@ -30,7 +30,6 @@
             measurementId: "G-CJ5P4M14FE"
         };
         firebase.initializeApp(firebaseConfig);
-        console.log("🔥 Firebase inicializado correctamente.");
     </script>
 
     <!-- Script principal -->
@@ -70,7 +69,7 @@
     <section id="video">
         <h2>Video Especial</h2>
         <video controls>
-            <source src="https://tu-enlace-de-video.mp4" type="video/mp4">
+            <source src="https://ruta-valida-del-video.mp4" type="video/mp4">
             Tu navegador no soporta el video.
         </video>
     </section>
