@@ -63,7 +63,7 @@ section {
 
 /* 🎠 Carrusel */
 #carousel {
-    width: 80%;
+    width: 100%;
     max-width: 600px;
     margin: auto;
     overflow: hidden;
@@ -73,18 +73,22 @@ section {
 
 .carousel-container {
     display: flex;
-    width: 300%; /* 3 imágenes, cada una con el 100% del viewport */
     transition: transform 1s ease-in-out;
+    width: 300%; /* Se ajusta al número de imágenes */
 }
 
 .carousel-slide {
     width: 100%;
     flex: 0 0 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .carousel-slide img {
     width: 100%;
-    display: block;
+    height: auto;
+    object-fit: cover;
     border-radius: 10px;
 }
 
