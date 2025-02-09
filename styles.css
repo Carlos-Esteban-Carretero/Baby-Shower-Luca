@@ -1,126 +1,180 @@
-/* 🌟 Estilos generales */
+/* Estilos generales */
 body {
     font-family: 'Poppins', sans-serif;
     text-align: center;
-    background: linear-gradient(to bottom, #e0f7fa, #b3e5fc); /* Degradado azul pastel */
+    background-color: #e0f7fa; /* Azul pastel baby shower */
     color: #333;
     margin: 0;
     padding: 0;
 }
 
-/* 🏆 Contenedor del formulario */
+/* Encabezado */
+header {
+    background-color: #4fc3f7;
+    padding: 40px;
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    animation: fadeInDown 1s ease-in-out;
+}
+
+/* Animación del título */
+h1 {
+    font-size: 32px;
+    animation: bounceIn 1.5s ease-in-out;
+}
+
+/* Secciones */
+section {
+    margin: 30px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 900px;
+    animation: fadeInUp 1s ease-in-out;
+}
+
+/* Botón de silenciar música */
+#muteMusic {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: none;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+#muteMusic:hover {
+    background-color: rgba(255, 255, 255, 1);
+}
+
+/* Carrusel */
+#carousel {
+    position: relative;
+    overflow: hidden;
+    max-width: 600px;
+    margin: auto;
+    border-radius: 10px;
+}
+
+.carousel-container {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-container img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* Contador */
+#countdown {
+    font-size: 24px;
+    font-weight: bold;
+    color: #0288d1;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    display: inline-block;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Formulario de confirmación */
 #rsvpForm {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 15px;
     background: #ffffff;
-    padding: 25px;
+    padding: 20px;
     border-radius: 12px;
-    box-shadow: 3px 6px 15px rgba(0, 0, 0, 0.15);
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
     max-width: 500px;
     margin: auto;
-    animation: fadeIn 1s ease-in-out;
-    border-top: 5px solid #4fc3f7;
 }
 
-/* 📌 Etiquetas con negrita y asterisco rojo */
+/* 📌 Etiquetas y campos de entrada */
 #rsvpForm label {
     font-weight: bold;
-    font-size: 18px;
+    font-size: 16px;
     color: #333;
+    display: block;
     text-align: left;
     width: 100%;
     max-width: 400px;
 }
 
-.required::after {
-    content: " *";
-    color: red;
-}
-
-/* 📌 Campos de entrada */
 #rsvpForm input {
     width: 100%;
-    max-width: 450px;
-    padding: 14px;
-    border-radius: 10px;
+    max-width: 400px;
+    padding: 12px;
+    border-radius: 8px;
     border: 2px solid #4fc3f7;
-    font-size: 18px;
-    background: #e3f2fd;
+    font-size: 16px;
     font-weight: bold;
-    transition: all 0.3s ease-in-out;
-    text-align: center;
 }
 
-/* Placeholder personalizados */
-#nombre::placeholder {
+#rsvpForm input::placeholder {
+    color: #aaa;
     font-weight: normal;
-    color: #757575;
-    font-size: 16px;
-    text-align: center;
-    font-style: italic;
-    content: "Escribe tu nombre...";
 }
 
-#apellido::placeholder {
-    font-weight: normal;
-    color: #757575;
-    font-size: 16px;
-    text-align: center;
-    font-style: italic;
-    content: "Escribe tu apellido...";
-}
-
-/* ✨ Efecto al enfocar los campos */
-#rsvpForm input:focus {
-    border: 2px solid #0288d1;
-    background: #b3e5fc;
-    transform: scale(1.03);
+/* 🚨 Asterisco rojo para campos obligatorios */
+.required {
+    color: red;
+    font-weight: bold;
 }
 
 /* 🎯 Pregunta de acompañantes con animación y flecha */
 .acompanante-label {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     color: #0288d1;
     text-align: center;
     position: relative;
     margin-bottom: 10px;
     animation: parpadeo 1.5s infinite alternate;
-    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
 }
 
 /* ✨ Animación de parpadeo */
 @keyframes parpadeo {
     0% { opacity: 1; transform: translateY(0); }
-    100% { opacity: 0.8; transform: translateY(-3px); }
+    100% { opacity: 0.7; transform: translateY(-3px); }
 }
 
 /* 🔽 Flecha animada apuntando al botón de agregar acompañante */
 .flecha {
     width: 0;
     height: 0;
-    border-left: 15px solid transparent;
-    border-right: 15px solid transparent;
-    border-top: 22px solid #0288d1;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-top: 18px solid #0288d1;
     margin: 5px auto;
     animation: moverFlecha 1s infinite alternate;
 }
 
 @keyframes moverFlecha {
     0% { transform: translateY(0); }
-    100% { transform: translateY(10px); }
+    100% { transform: translateY(7px); }
 }
 
-/* 🟡 Botón de añadir acompañante (Mejorado y centrado) */
+/* 🟡 Botón de añadir acompañante (Mejorado) */
 #agregar-acompanante {
-    background: linear-gradient(to right, #ffb74d, #ff9800);
+    background-color: #ffb74d;
     color: white;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
-    padding: 14px 25px;
-    border-radius: 30px;
+    padding: 10px 15px;
+    border-radius: 20px;
     cursor: pointer;
     transition: all 0.3s ease;
     display: flex;
@@ -128,52 +182,38 @@ body {
     justify-content: center;
     gap: 10px;
     border: none;
-    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
     text-align: center;
     width: 80%;
     max-width: 250px;
 }
 
 #agregar-acompanante i {
-    font-size: 20px;
+    font-size: 18px;
 }
 
 #agregar-acompanante:hover {
-    background: linear-gradient(to right, #ffa726, #ff7043);
+    background-color: #ff9800;
     transform: scale(1.05);
 }
 
-/* 💙 Botón de confirmar asistencia con animación */
+/* 🔵 Botón de confirmar */
 .btn-confirmar {
-    background: linear-gradient(to right, #4fc3f7, #0288d1);
+    background-color: #4fc3f7;
     color: white;
     font-weight: bold;
     border: none;
-    padding: 14px 22px;
-    border-radius: 30px;
+    padding: 12px 18px;
+    border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
     width: 100%;
-    max-width: 250px;
-    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
-    animation: bounceIn 1.2s ease-in-out;
+    max-width: 200px;
 }
 
 .btn-confirmar:hover {
-    background: linear-gradient(to right, #0288d1, #01579b);
+    background-color: #0288d1;
     transform: scale(1.05);
-}
-
-/* 🎇 Animación al hacer clic en confirmar */
-.btn-confirmar:active {
-    transform: scale(0.95);
-}
-
-/* 🎉 Efecto flotante al formulario */
-@keyframes bounceIn {
-    0% { transform: scale(0.9); opacity: 0; }
-    50% { transform: scale(1.1); opacity: 1; }
-    100% { transform: scale(1); }
 }
 
 /* 📱 Responsividad mejorada */
@@ -195,10 +235,6 @@ body {
     }
 
     #agregar-acompanante {
-        width: 90%;
-    }
-
-    .btn-confirmar {
-        width: 90%;
+        width: 80%;
     }
 }
