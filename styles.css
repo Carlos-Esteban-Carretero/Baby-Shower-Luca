@@ -61,7 +61,7 @@ section {
     background-color: rgba(255, 255, 255, 1);
 }
 
-/* 🎠 Carrusel */
+/* 🎠 Ajustes para el carrusel */
 #carousel {
     width: 80%;
     max-width: 600px;
@@ -73,49 +73,28 @@ section {
 
 .carousel-container {
     display: flex;
+    width: 100%;
+    height: 400px; /* Altura fija para todas las imágenes */
     align-items: center;
     justify-content: center;
     position: relative;
 }
 
 .carousel-slide {
-    display: none;
-    width: 100%;
-    text-align: center;
+    min-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .carousel-slide img {
     width: 100%;
-    height: 400px; /* Se fija la altura para que todas sean iguales */
-    object-fit: cover; /* Asegura que todas se ajusten sin deformarse */
+    height: 100%;
+    object-fit: cover; /* Asegura que las imágenes se ajusten sin distorsionarse */
     border-radius: 10px;
-}
-
-/* Mostrar solo la primera imagen al inicio */
-.carousel-slide.active {
     display: block;
 }
 
-/* Botones del carrusel */
-.carousel-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    font-size: 24px;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-#prev { left: 10px; }
-#next { right: 10px; }
-
-.carousel-btn:hover {
-    background: rgba(0, 0, 0, 0.8);
-}
 
 
 
