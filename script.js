@@ -33,42 +33,30 @@ document.addEventListener("DOMContentLoaded", function () {
 
     setTimeout(lanzarConfeti, 1000);
 
-    // 🎠 **Carrusel de imágenes con navegación**
+// 🎠 **Carrusel de imágenes funcional con tamaño uniforme**
+document.addEventListener("DOMContentLoaded", function () {
+    console.log("✅ Página cargada correctamente");
+
     let index = 0;
     const slides = document.querySelectorAll(".carousel-slide");
     const totalSlides = slides.length;
-    const prevBtn = document.getElementById("prev");
-    const nextBtn = document.getElementById("next");
 
-    function mostrarImagen() {
+    function cambiarImagen() {
         slides.forEach((slide, i) => {
-            slide.classList.remove("active");
+            slide.style.display = (i === index) ? "block" : "none";
         });
-        slides[index].classList.add("active");
+
+        index = (index + 1) % totalSlides;
     }
 
-    function cambiarImagen(direccion) {
-        index = (index + direccion + totalSlides) % totalSlides;
-        mostrarImagen();
+    // Inicializa el carrusel
+    if (totalSlides > 0) {
+        slides.forEach(slide => slide.style.display = "none");
+        slides[0].style.display = "block";
+        setInterval(cambiarImagen, 2500);
     }
-
-    // Cambio automático cada 2.5s
-    let autoSlide = setInterval(() => cambiarImagen(1), 2500);
-
-    // Botones manuales
-    prevBtn.addEventListener("click", () => {
-        clearInterval(autoSlide); // Detener auto-slide al hacer click
-        cambiarImagen(-1);
-    });
-
-    nextBtn.addEventListener("click", () => {
-        clearInterval(autoSlide);
-        cambiarImagen(1);
-    });
-
-    // Mostrar la primera imagen
-    mostrarImagen();
 });
+
 
     // 🔥 🔥 🔥 FIREBASE 🔥 🔥 🔥
     const db = firebase.database();
