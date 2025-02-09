@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
     setTimeout(lanzarConfeti, 1000);
 
     // 🎠 Carrusel de imágenes funcional
-    const slides = document.querySelectorAll(".carousel-slide img");
+    const slides = document.querySelectorAll(".carousel-slide");
     const carouselContainer = document.querySelector(".carousel-container");
     let index = 0;
 
