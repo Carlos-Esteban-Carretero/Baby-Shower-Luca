@@ -61,13 +61,14 @@ section {
     background-color: rgba(255, 255, 255, 1);
 }
 
-/* 🎠 Carrusel corregido */
+/* 🎠 Estilos del Carrusel */
 #carousel {
     width: 80%;
     max-width: 600px;
+    height: auto;
     margin: auto;
     overflow: hidden;
-    border-radius: 10px;
+    border-radius: 15px;
     position: relative;
 }
 
@@ -88,9 +89,10 @@ section {
 .carousel-slide img {
     width: 100%;
     height: auto;
-    display: block;
-    border-radius: 10px;
+    object-fit: cover;
+    border-radius: 15px;
 }
+
 
 
 
