@@ -9,17 +9,18 @@ document.addEventListener("DOMContentLoaded", function () {
         ease: "bounce.out" 
     });
 
-    // 🎉 Efecto de confeti extendido por toda la pantalla y más duradero
+    // 🎉 Confeti extendido por toda la pantalla y con más duración
     function lanzarConfeti() {
-        let duracion = 5 * 1000; // 5 segundos de duración
+        let duracion = 7000; // 7 segundos de duración
         let end = Date.now() + duracion;
 
         (function frame() {
             confetti({
-                particleCount: 5,
-                spread: 200,
-                startVelocity: 30,
-                origin: { x: Math.random(), y: Math.random() * 0.6 }
+                particleCount: 10,
+                spread: 360, // Cobertura total
+                startVelocity: 40,
+                ticks: 100, // Más duración en cada ráfaga
+                origin: { x: Math.random(), y: Math.random() } // Generación aleatoria en toda la pantalla
             });
 
             if (Date.now() < end) {
@@ -28,9 +29,10 @@ document.addEventListener("DOMContentLoaded", function () {
         })();
     }
 
-    // Disparar confeti después de 1 segundo y que dure más
+    // Disparar confeti después de 1 segundo y hacerlo durar más
     setTimeout(lanzarConfeti, 1000);
 });
+
 
 
     // 🔥 🔥 🔥 RESTAURANDO FIREBASE 🔥 🔥 🔥
