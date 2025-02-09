@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Disparar confeti después de 1 segundo
     setTimeout(lanzarConfeti, 1000);
 
-    // 🔥 Firebase configuración y referencia a la base de datos
+    // 🔥 🔥 🔥 RESTAURANDO FIREBASE 🔥 🔥 🔥
     const db = firebase.database();
     const listaInvitados = document.getElementById("lista-invitados");
     const contadorInvitados = document.getElementById("contador-invitados");
