@@ -1,4 +1,4 @@
-/* Estilos generales */
+/* 🎨 Estilos Generales */
 body {
     font-family: 'Poppins', sans-serif;
     text-align: center;
@@ -8,7 +8,7 @@ body {
     padding: 0;
 }
 
-/* Encabezado */
+/* 🌟 Encabezado */
 header {
     background-color: #4fc3f7;
     padding: 40px;
@@ -19,13 +19,13 @@ header {
     animation: fadeInDown 1s ease-in-out;
 }
 
-/* Animación del título */
+/* 📌 Animación del título */
 h1 {
     font-size: 32px;
     animation: bounceIn 1.5s ease-in-out;
 }
 
-/* Secciones */
+/* 📍 Secciones */
 section {
     margin: 30px auto;
     padding: 20px;
@@ -37,7 +37,7 @@ section {
     animation: fadeInUp 1s ease-in-out;
 }
 
-/* Botón de silenciar música */
+/* 🎵 Botón de silenciar música */
 #muteMusic {
     position: fixed;
     top: 20px;
@@ -55,7 +55,7 @@ section {
     background-color: rgba(255, 255, 255, 1);
 }
 
-/* Carrusel */
+/* 🎠 Carrusel */
 #carousel {
     position: relative;
     overflow: hidden;
@@ -76,7 +76,7 @@ section {
     border-radius: 10px;
 }
 
-/* Contador */
+/* ⏳ Contador */
 #countdown {
     font-size: 24px;
     font-weight: bold;
@@ -88,13 +88,13 @@ section {
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* 🎉 Formulario de confirmación */
+/* ✅ Formulario de confirmación */
 #rsvpForm {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 15px;
-    background: #ffffff;
+    background: white;
     padding: 20px;
     border-radius: 12px;
     box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
@@ -102,17 +102,7 @@ section {
     margin: auto;
 }
 
-/* 📌 Etiquetas y campos de entrada */
-#rsvpForm label {
-    font-weight: bold;
-    font-size: 16px;
-    color: #333;
-    display: block;
-    text-align: left;
-    width: 100%;
-    max-width: 400px;
-}
-
+/* 📝 Campos de texto */
 #rsvpForm input {
     width: 100%;
     max-width: 400px;
@@ -123,18 +113,19 @@ section {
     font-weight: bold;
 }
 
+/* 👀 Placeholder con texto más claro */
 #rsvpForm input::placeholder {
     color: #aaa;
     font-weight: normal;
 }
 
-/* 🚨 Asterisco rojo para campos obligatorios */
+/* 🔴 Asterisco rojo en campos obligatorios */
 .required {
     color: red;
     font-weight: bold;
 }
 
-/* 🎯 Pregunta de acompañantes con animación y flecha */
+/* 📌 Pregunta de acompañantes con animación */
 .acompanante-label {
     font-size: 18px;
     font-weight: bold;
@@ -145,13 +136,7 @@ section {
     animation: parpadeo 1.5s infinite alternate;
 }
 
-/* ✨ Animación de parpadeo */
-@keyframes parpadeo {
-    0% { opacity: 1; transform: translateY(0); }
-    100% { opacity: 0.7; transform: translateY(-3px); }
-}
-
-/* 🔽 Flecha animada apuntando al botón de agregar acompañante */
+/* 🔽 Flecha animada apuntando al botón de añadir acompañante */
 .flecha {
     width: 0;
     height: 0;
@@ -167,13 +152,13 @@ section {
     100% { transform: translateY(7px); }
 }
 
-/* 🟡 Botón de añadir acompañante */
+/* ➕ Botón de añadir acompañante mejorado */
 #agregar-acompanante {
     background-color: #ffb74d;
     color: white;
     font-size: 16px;
     font-weight: bold;
-    padding: 10px 15px;
+    padding: 12px;
     border-radius: 20px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -216,28 +201,7 @@ section {
     transform: scale(1.05);
 }
 
-/* Lista de invitados */
-#lista-invitados {
-    list-style: none;
-    padding: 0;
-    font-size: 18px;
-}
-
-#lista-invitados li {
-    background: #e3f2fd;
-    padding: 12px;
-    border-radius: 8px;
-    margin: 5px 0;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Agregando estilos para los datos traídos desde Firebase */
-.firebase-item {
-    font-weight: bold;
-    color: #00796b;
-}
-
-/* 📱 Responsividad */
+/* 📱 Responsividad mejorada */
 @media screen and (max-width: 768px) {
     section {
         width: 90%;
