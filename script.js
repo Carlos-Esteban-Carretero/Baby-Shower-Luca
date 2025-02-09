@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // 🎠 **Corrección del Carrusel**
     const slides = document.querySelectorAll(".carousel-slide");
-    const carouselContainer = document.querySelector(".carousel-container");
+    const totalSlides = slides.length;
     let index = 0;
 
     function cambiarImagen() {
@@ -43,10 +43,12 @@ document.addEventListener("DOMContentLoaded", function () {
             slide.style.display = i === index ? "block" : "none";
         });
 
-        index = (index + 1) % slides.length;
+        index = (index + 1) % totalSlides;
     }
 
-    if (slides.length > 0) {
+    if (totalSlides > 0) {
+        slides.forEach(slide => slide.style.display = "none");
+        slides[0].style.display = "block"; // Mostrar la primera imagen al inicio
         setInterval(cambiarImagen, 2500);
     }
 
