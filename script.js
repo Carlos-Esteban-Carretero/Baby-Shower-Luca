@@ -33,6 +33,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     setTimeout(lanzarConfeti, 1000);
 
+  document.addEventListener("DOMContentLoaded", function () {
+    console.log("✅ Página cargada correctamente");
+
     // 🎠 Carrusel de imágenes funcional
     const slides = document.querySelectorAll(".carousel-slide");
     const carouselContainer = document.querySelector(".carousel-container");
@@ -44,7 +47,9 @@ document.addEventListener("DOMContentLoaded", function () {
         carouselContainer.style.transform = `translateX(${desplazamiento}%)`;
     }
 
-    setInterval(cambiarImagen, 2500); // Cambia cada 2.5 segundos
+    setInterval(cambiarImagen, 3000); // Cambia cada 3 segundos
+});
+
 
     // 🔥 🔥 🔥 FIREBASE 🔥 🔥 🔥
     const db = firebase.database();
