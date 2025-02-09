@@ -33,6 +33,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     setTimeout(lanzarConfeti, 1000);
 
+    // 🎠 **Carrusel de imágenes funcional**
+    let index = 0;
+    const slides = document.querySelectorAll(".carousel-slide");
+    const totalSlides = slides.length;
+
      function cambiarImagen() {
         slides.forEach((slide, i) => {
             slide.style.opacity = (i === index) ? "1" : "0";
