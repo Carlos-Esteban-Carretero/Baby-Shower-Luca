@@ -89,7 +89,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const acompanantesContainer = document.getElementById("acompanantes-container");
     const btnAgregarAcompanante = document.getElementById("agregar-acompanante");
 
-    // Botón para agregar acompañantes
     btnAgregarAcompanante.addEventListener("click", function () {
         let nuevoInput = document.createElement("input");
         nuevoInput.type = "text";
@@ -98,32 +97,6 @@ document.addEventListener("DOMContentLoaded", function () {
         acompanantesContainer.appendChild(nuevoInput);
     });
 
-    // Función para guardar invitados en Firebase
-    rsvpForm.addEventListener("submit", function (e) {
-        e.preventDefault();
-
-        let nombre = document.getElementById("nombre").value.trim();
-        let apellido = document.getElementById("apellido").value.trim();
-        let acompanantes = [...document.querySelectorAll(".acompanante")].map(input => input.value.trim()).filter(val => val !== "");
-
-        if (nombre && apellido) {
-            let nuevoInvitado = database.ref("invitados").push();
-
-            nuevoInvitado.set({
-                nombre: nombre,
-                apellido: apellido,
-                acompanantes: acompanantes
-            }).then(() => {
-                console.log("✅ Invitado guardado correctamente.");
-                rsvpForm.reset();
-                acompanantesContainer.innerHTML = "";
-            }).catch((error) => {
-                console.error("❌ Error al guardar en Firebase:", error);
-            });
-        }
-    });
-
-    // Función para mostrar la lista de invitados en la web
     function actualizarListaInvitados(snapshot) {
         listaInvitados.innerHTML = "";
         let count = 0;
@@ -132,11 +105,9 @@ document.addEventListener("DOMContentLoaded", function () {
             let data = childSnapshot.val();
             let li = document.createElement("li");
             li.textContent = `${data.nombre} ${data.apellido}`;
-
             if (data.acompanantes && data.acompanantes.length > 0) {
                 li.textContent += ` (Acompañantes: ${data.acompanantes.join(", ")})`;
             }
-
             listaInvitados.appendChild(li);
             count++;
         });
@@ -144,6 +115,30 @@ document.addEventListener("DOMContentLoaded", function () {
         contadorInvitados.textContent = count;
     }
 
-    // Cargar invitados en tiempo real desde Firebase
+    // 📌 Cargar invitados en tiempo real desde Firebase
     database.ref("invitados").on("value", actualizarListaInvitados);
+
+    rsvpForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        let nombre = document.getElementById("nombre").value.trim();
+        let apellido = document.getElementById("apellido").value.trim();
+        let acompanantes = [...document.querySelectorAll(".acompanante")].map(input => input.value.trim()).filter(val => val !== "");
+
+        if (nombre && apellido) {
+            let nuevoInvitado = database.ref("invitados").push();
+            nuevoInvitado.set({
+                nombre: nombre,
+                apellido: apellido,
+                acompanantes: acompanantes
+            }).then(() => {
+                console.log("Invitado registrado con éxito");
+                rsvpForm.reset();
+                acompanantesContainer.innerHTML = "";
+            }).catch(error => {
+                console.error("Error al guardar en Firebase:", error);
+            });
+        } else {
+            alert("Por favor, completa tu nombre y apellido.");
+        }
+    });
 });
