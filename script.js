@@ -33,26 +33,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
     setTimeout(lanzarConfeti, 1000);
 
-    // 🔄 **Carrusel de imágenes corregido**
+    // 🎠 **Carrusel de imágenes funcional**
     let index = 0;
-    const slides = document.querySelectorAll(".carousel-container img");
+    const slides = document.querySelectorAll(".carousel-slide");
+    const totalSlides = slides.length;
 
     function cambiarImagen() {
-        slides.forEach((img, i) => {
-            img.style.opacity = "0"; // Oculta todas las imágenes con opacidad
+        slides.forEach((slide, i) => {
+            slide.style.display = (i === index) ? "block" : "none";
         });
 
-        slides[index].style.opacity = "1"; // Muestra solo la imagen actual
-        index = (index + 1) % slides.length; // Pasa a la siguiente imagen
+        index = (index + 1) % totalSlides;
     }
 
-    if (slides.length > 0) {
-        slides.forEach((img, i) => {
-            img.style.transition = "opacity 1s ease-in-out"; // Agrega transición suave
-            img.style.opacity = "0"; // Asegura que todas las imágenes inicien ocultas
-        });
-
-        slides[0].style.opacity = "1"; // Muestra la primera imagen inicialmente
+    // Mostrar la primera imagen al inicio
+    if (totalSlides > 0) {
+        cambiarImagen();
         setInterval(cambiarImagen, 2500); // Cambia cada 2.5 segundos
     }
 
