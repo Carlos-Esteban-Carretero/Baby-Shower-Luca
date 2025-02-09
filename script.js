@@ -33,18 +33,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     setTimeout(lanzarConfeti, 1000);
 
-// 🎠 **Carrusel Corrección Final**
+    // 🎠 Carrusel de imágenes funcional
     const slides = document.querySelectorAll(".carousel-slide img");
     const carouselContainer = document.querySelector(".carousel-container");
     let index = 0;
 
     function cambiarImagen() {
         index = (index + 1) % slides.length;
-        carouselContainer.style.transform = `translateX(-${index * 100}%)`;
+        const desplazamiento = -index * 100; 
+        carouselContainer.style.transform = `translateX(${desplazamiento}%)`;
     }
 
     setInterval(cambiarImagen, 2500); // Cambia cada 2.5 segundos
-});
 
     // 🔥 🔥 🔥 FIREBASE 🔥 🔥 🔥
     const db = firebase.database();
@@ -103,4 +103,4 @@ document.addEventListener("DOMContentLoaded", function () {
         contadorInvitados.textContent = count;
     });
 
-});
+}); // Cierre de `DOMContentLoaded`
