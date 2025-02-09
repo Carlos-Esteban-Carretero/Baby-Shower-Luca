@@ -61,7 +61,7 @@ section {
     background-color: rgba(255, 255, 255, 1);
 }
 
-/* 🎠 Carrusel */
+/* 🎠 Carrusel de imágenes */
 #carousel {
     position: relative;
     overflow: hidden;
@@ -72,15 +72,31 @@ section {
 
 .carousel-container {
     display: flex;
-    transition: transform 0.5s ease-in-out;
-}
-
-.carousel-container img {
     width: 100%;
     height: 300px;
+    position: relative;
+}
+
+.carousel-slide {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transition: opacity 1s ease-in-out;
+    opacity: 0;
+}
+
+.carousel-slide.active {
+    opacity: 1;
+}
+
+.carousel-img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     border-radius: 10px;
 }
+
 
 /* ⏳ Contador */
 #countdown {
